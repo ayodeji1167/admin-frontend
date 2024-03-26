@@ -17,7 +17,7 @@ export default function Top() {
         justifyContent={'space-between'}
         alignItems={'center'}
       >
-        <Text>Overview</Text>
+        <Text textStyle={'subHeading'}>Overview</Text>
         <Button minW={'10rem'}>Log Services</Button>
       </Flex>
       <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>

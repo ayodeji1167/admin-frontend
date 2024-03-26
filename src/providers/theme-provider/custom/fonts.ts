@@ -1,6 +1,6 @@
 const fonts = {
-  heading: 'var(--font-josefin)',
-  body: 'var(--font-urbanist)',
+  heading: 'var(--font-sf-pro)',
+  body: 'var(--font-manrope)',
 };
 const fontSizes = {
   xs: '11px',
@@ -60,7 +60,7 @@ const textStyles = {
     lineHeight: '165%',
   },
   subHeading: {
-    fontSize: { base: '20px', md: '26px' },
+    fontSize: { base: '1rem', md: '1.6rem' },
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'heading',

@@ -1,8 +1,4 @@
 export const Text = {
-  baseStyle: {
-    fontSize: { base: '15px', md: '15px', lg: '16px' },
-  },
-
   variants: {
     small: {
       fontSize: {
