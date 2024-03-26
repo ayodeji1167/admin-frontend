@@ -78,6 +78,7 @@ export default function HeaderMenu() {
           gap={'.6rem'}
           p={'1rem'}
           onClick={onClose}
+          color={'#BB1111'}
         >
           <PiSignOutLight />
           <Text>Log Out</Text>
