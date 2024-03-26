@@ -62,7 +62,6 @@ const textStyles = {
   subHeading: {
     fontSize: { base: '1rem', md: '1.6rem' },
     fontWeight: 'bold',
-    textAlign: 'center',
     fontFamily: 'heading',
   },
   small: {

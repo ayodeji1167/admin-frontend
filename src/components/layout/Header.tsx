@@ -11,7 +11,7 @@ import SizeWrapper from '../sizewrapper/SizeWrapper';
 
 export default function Header() {
   return (
-    <Box w={'100vw'} py={'1rem'} bg={'#174777'}>
+    <Box w={'100%'} overflow={'hidden'} py={'1rem'} bg={'#174777'}>
       <SizeWrapper>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <Box w={'10rem'}>

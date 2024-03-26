@@ -3,13 +3,13 @@ import React from 'react';
 import Box from '@/components/ui/chakra/Box';
 import Text from '@/components/ui/chakra/Text';
 import Image from '@/components/ui/chakra/Image';
-interface QuickLinkProps {
+export interface QuickLinkProps {
   name: string;
   path: string;
   description: string;
   image: StaticImageData;
 }
-export default function Quicklinks({
+export default function Quicklink({
   name,
   //   path,
   description,
@@ -18,13 +18,7 @@ export default function Quicklinks({
   return (
     <Box>
       <Box>
-        <Image
-          src={image.src}
-          alt={name}
-          w={'100%'}
-          h={'100%'}
-          objectFit={'cover'}
-        />
+        <Image src={image.src} alt={name} objectFit={'cover'} />
       </Box>
       <Box>
         <Text>{name}</Text>
