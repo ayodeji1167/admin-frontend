@@ -1,7 +1,7 @@
 export const style = {
   global: {
     body: {
-      fontSiza: '15px',
+      fontSize: '15px',
     },
   },
 };
