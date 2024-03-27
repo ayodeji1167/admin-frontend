@@ -11,7 +11,7 @@ export const quicklink: Array<QuickLinkProps> = [
     name: 'Vehicles',
     description: 'Manage all vehicles registered in the system.',
     image: vehicle,
-    path: '/vehicle',
+    path: '/vehicles',
   },
   {
     name: 'Customers',
@@ -23,24 +23,24 @@ export const quicklink: Array<QuickLinkProps> = [
     name: 'Technicians',
     description: 'View and assign tasks to technicians',
     image: technician,
-    path: '/technician',
+    path: '/technicians',
   },
   {
     name: 'Invoice',
     description: 'Create and manage service invoices effortlessly.',
     image: invoice,
-    path: '/invoice',
+    path: '/invoices',
   },
   {
     name: 'Inspection Reports',
     description: 'Track vehicle inspections and generate reports.',
     image: inspection,
-    path: '/inspection',
+    path: '/inspections',
   },
   {
     name: 'Estimates',
     description: 'Generate service estimates for customers.',
     image: estimate,
-    path: '/estimate',
+    path: '/estimates',
   },
 ];
