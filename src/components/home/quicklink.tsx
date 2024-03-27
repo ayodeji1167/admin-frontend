@@ -16,13 +16,15 @@ export default function Quicklink({
   image,
 }: QuickLinkProps) {
   return (
-    <Box>
+    <Box rounded={'.5rem'} overflow={'hidden'} bg="white">
       <Box>
         <Image src={image.src} alt={name} objectFit={'cover'} />
       </Box>
-      <Box>
-        <Text>{name}</Text>
-        <Text>{description}</Text>
+      <Box pt={'.9rem'} pl={'1.5rem'} pb={'1.6rem'}>
+        <Text textStyle={'subHeading'} mb={'.6rem'}>
+          {name}
+        </Text>
+        <Text fontSize={'.9rem'}>{description}</Text>
       </Box>
     </Box>
   );

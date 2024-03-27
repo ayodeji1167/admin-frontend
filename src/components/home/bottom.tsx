@@ -5,6 +5,7 @@ import Text from '@/components/ui/chakra/Text';
 import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import Quicklink from './quicklink';
 import { quicklink } from '@/data/quicklink';
+import Link from 'next/link';
 
 export default function Bottom() {
   return (
@@ -12,10 +13,12 @@ export default function Bottom() {
       <Text mb={'2.3rem'} textStyle={'subHeading'}>
         Quick Access Links
       </Text>
-      <SimpleGrid gap={'1.4rem'} columns={3}>
+      <SimpleGrid rowGap={'2.5rem'} gap={'1.4rem'} columns={3}>
         {quicklink.map((item, index) => (
           <GridItem key={index}>
-            <Quicklink {...item} />
+            <Link href={item.path}>
+              <Quicklink {...item} />
+            </Link>
           </GridItem>
         ))}
       </SimpleGrid>
