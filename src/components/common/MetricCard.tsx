@@ -23,7 +23,9 @@ export default function MetricCard({ name, value, icon }: MetricCardProps) {
     >
       <Box>
         <Text>{name}</Text>
-        <Text>{value}</Text>
+        <Text mt={'.5rem'} fontWeight={700} fontSize={'1.2rem'}>
+          {value}
+        </Text>
       </Box>
       <Box>
         <Icon fontSize={'7rem'} as={icon} />

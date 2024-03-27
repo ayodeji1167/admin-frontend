@@ -7,7 +7,7 @@ import Text from '@/components/ui/chakra/Text';
 import Button from '@/components/ui/chakra/Button';
 import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import MetricCard from '../common/MetricCard';
-import { dashboardMetrics } from '@/data/metrics';
+import { vehicleMetrics } from './data';
 
 export default function Top() {
   return (
@@ -21,7 +21,7 @@ export default function Top() {
         <Button minW={'10rem'}>Log Services</Button>
       </Flex>
       <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>
-        {dashboardMetrics.map((item, index) => (
+        {vehicleMetrics.map((item, index) => (
           <GridItem key={index}>
             <MetricCard {...item} />
           </GridItem>
