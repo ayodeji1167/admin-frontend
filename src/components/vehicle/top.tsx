@@ -8,6 +8,7 @@ import Button from '@/components/ui/chakra/Button';
 import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import MetricCard from '../common/MetricCard';
 import { vehicleMetrics } from './data';
+import Link from 'next/link';
 
 export default function Top() {
   return (
@@ -18,7 +19,9 @@ export default function Top() {
         alignItems={'center'}
       >
         <Text textStyle={'subHeading'}>Overview</Text>
-        <Button minW={'10rem'}>Log Services</Button>
+        <Link href={'/vehicles/add'}>
+          <Button minW={'10rem'}>Add vehicle</Button>
+        </Link>
       </Flex>
       <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>
         {vehicleMetrics.map((item, index) => (
