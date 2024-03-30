@@ -23,7 +23,7 @@ export default function StringInput(props: StringInputProps) {
         requiredIndicator={<abbr title="required field"></abbr>}
         fontFamily={'body'}
         fontWeight={'600'}
-        fontSize={'1rem'}
+        fontSize={'1.1rem'}
         {...props.formLabelProps}
         mb={{ base: '6px', md: '0.5rem' }}
       >
