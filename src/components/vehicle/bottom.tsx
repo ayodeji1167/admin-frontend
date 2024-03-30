@@ -12,6 +12,7 @@ import { vehicle } from '@/data/vehicles';
 import { Table, Thead, Tr, Th, chakra, Tbody, Td } from '@chakra-ui/react';
 import { FaSortDown, FaSortUp } from 'react-icons/fa';
 import Filter from './table/filter';
+import Pagination from './table/pagination';
 export default function Bottom() {
   const [sorting, setSorting] = React.useState([
     {
@@ -96,6 +97,7 @@ export default function Bottom() {
           ))}
         </Tbody>
       </Table>
+      <Pagination />
     </Box>
   );
 }

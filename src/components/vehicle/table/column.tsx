@@ -2,10 +2,16 @@ import { IVehicle } from '@/interface/vehicle';
 import { createColumnHelper } from '@tanstack/react-table';
 import Box from '@/components/ui/chakra/Box';
 import RowActions from './RowActions';
+import { Checkbox } from '@chakra-ui/react';
 
 const columnHelper = createColumnHelper<IVehicle>();
 
 export const columnDef = [
+  columnHelper.display({
+    id: 'check',
+    cell: () => <Checkbox />,
+    header: () => <Checkbox borderColor={'white'} />,
+  }),
   columnHelper.accessor('name', {
     cell: (info) => <Box>{info.getValue()}</Box>,
     header: 'Vehicle name',
