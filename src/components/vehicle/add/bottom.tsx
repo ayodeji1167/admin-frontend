@@ -1,7 +1,13 @@
 'use client';
 import CustomSelect from '@/components/Input/CustomSelect';
 import StringInput from '@/components/Input/StringInput';
+import Userform from '@/components/userform/userform';
 import { cars } from '@/data/cars';
+import {
+  carTypeOptions,
+  fuelTypeOptions,
+  yearOptions,
+} from '@/data/vehicle-options';
 import { getCarModelOptions, getCarOptions } from '@/utils/select-format';
 import { Box, Divider, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
@@ -42,6 +48,14 @@ export default function Bottom() {
               />
             </GridItem>
             <GridItem>
+              <StringInput
+                formControlProps={{
+                  label: 'Name',
+                }}
+                inputProps={{ placeholder: 'Enter the Vehicle name' }}
+              />
+            </GridItem>
+            <GridItem>
               <CustomSelect
                 placeholder="Type to search..."
                 options={make}
@@ -59,10 +73,51 @@ export default function Bottom() {
                 onChange={(val) => {
                   return val;
                 }}
-                label="Make"
-              />{' '}
+                label="Model"
+              />
+            </GridItem>
+            <GridItem>
+              <CustomSelect
+                placeholder="Type to search..."
+                options={yearOptions}
+                onChange={(val) => {
+                  return val;
+                }}
+                label="Year"
+              />
+            </GridItem>
+            <GridItem>
+              <CustomSelect
+                placeholder="Type to search..."
+                options={carTypeOptions}
+                onChange={(val) => {
+                  return val;
+                }}
+                label="Vehicle Type"
+              />
+            </GridItem>
+            <GridItem>
+              <CustomSelect
+                placeholder="Type to search..."
+                options={fuelTypeOptions}
+                onChange={(val) => {
+                  return val;
+                }}
+                label="Fuel Type"
+              />
+            </GridItem>
+            <GridItem>
+              <StringInput
+                formControlProps={{
+                  label: 'Color',
+                }}
+                inputProps={{ placeholder: 'Enter the Vehicle name' }}
+              />
             </GridItem>
           </SimpleGrid>
+          {/* <Box mt={'3.5rem'}>
+            <Userform />
+          </Box> */}
         </form>
       </Box>
     </Box>
