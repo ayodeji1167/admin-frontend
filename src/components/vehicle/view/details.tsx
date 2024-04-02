@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Divider,
   Flex,
   GridItem,
@@ -32,7 +33,13 @@ function VehicleItem({ name, value }: { name: string; value: string }) {
 export default function Details({ id }: { id: string }) {
   const images = [img1, img2, img3, img4];
   return (
-    <Box rounded={'.5rem'} mt={'1.2rem'} pt={'1.5rem'} bg={'white'}>
+    <Box
+      pb={'2.5rem'}
+      rounded={'.5rem'}
+      mt={'1.2rem'}
+      pt={'1.5rem'}
+      bg={'white'}
+    >
       <Flex
         px={'1.8rem'}
         pb={'1.5rem'}
@@ -98,6 +105,14 @@ export default function Details({ id }: { id: string }) {
             <VehicleItem name="Vehicle Make" value="Toyota" />
           </GridItem>
         </SimpleGrid>
+
+        <Center gap={'1.3rem'}>
+          <Text fontWeight={700} fontSize={'1.2rem'}>
+            This vehicle is owned by{' '}
+            <span style={{ color: '#2574C3' }}>Mr. John Smith.</span>{' '}
+          </Text>
+          <Button minW={'13rem'}>Edit Owners information</Button>
+        </Center>
       </Box>
     </Box>
   );
