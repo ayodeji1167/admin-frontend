@@ -9,7 +9,15 @@ import {
   yearOptions,
 } from '@/data/vehicle-options';
 import { getCarModelOptions, getCarOptions } from '@/utils/select-format';
-import { Box, Divider, GridItem, SimpleGrid, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  GridItem,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 export default function Bottom() {
@@ -36,7 +44,7 @@ export default function Bottom() {
         Vehicle Information
       </Text>
       <Divider />
-      <Box px={'2.5rem'} mt={'1.5rem'}>
+      <Box pb={'2rem'} px={'2.5rem'} mt={'1.5rem'}>
         <form action="">
           <SimpleGrid gap={'1.2rem'} columns={2}>
             <GridItem>
@@ -78,6 +86,19 @@ export default function Bottom() {
             </GridItem>
             <GridItem>
               <CustomSelect
+                placeholder="Select business"
+                options={[
+                  { label: 'GTB', value: 'GTB' },
+                  { label: 'Coca cola', value: 'coca cola' },
+                ]}
+                onChange={(val) => {
+                  return val;
+                }}
+                label="Business"
+              />
+            </GridItem>
+            <GridItem>
+              <CustomSelect
                 placeholder="Type to search..."
                 options={yearOptions}
                 onChange={(val) => {
@@ -115,9 +136,12 @@ export default function Bottom() {
               />
             </GridItem>
           </SimpleGrid>
-          {/* <Box mt={'3.5rem'}>
+          <Box mt={'3.5rem'}>
             <Userform />
-          </Box> */}
+          </Box>
+          <Center mt={'4rem'}>
+            <Button minW={'11rem'}>Save</Button>
+          </Center>
         </form>
       </Box>
     </Box>
