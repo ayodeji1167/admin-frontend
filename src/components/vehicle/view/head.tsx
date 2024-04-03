@@ -1,9 +1,12 @@
+'use client';
 import CustomBreadcrumb from '@/components/common/CustomBreadcrumb';
-import { Flex, Box, Button, Text } from '@chakra-ui/react';
-import Link from 'next/link';
+import CustomModal from '@/components/common/CustomModal';
+import { Flex, Box, Button, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
+import LogServiceModal from './log-service-modal';
 
 export default function Head({ id }: { id: string }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex alignItems={'center'} justifyContent={'space-between'} pt={'2rem'}>
       <Box>
@@ -14,10 +17,14 @@ export default function Head({ id }: { id: string }) {
       </Box>
 
       <Box>
-        <Link href={`/service/add/${id}`}>
-          <Button minW={'9rem'}>Log service</Button>
-        </Link>
+        <Button onClick={onOpen} minW={'9rem'}>
+          Log New Service
+        </Button>
       </Box>
+
+      <CustomModal isOpen={isOpen} onClose={onClose}>
+        <LogServiceModal id={id} />
+      </CustomModal>
     </Flex>
   );
 }
