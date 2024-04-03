@@ -29,7 +29,7 @@ interface CustomTableProps {
   data: Array<any>;
   filter: {
     tableName: string;
-    inputProps: InputProps;
+    inputProps?: InputProps;
   };
 }
 export default function CustomTable({

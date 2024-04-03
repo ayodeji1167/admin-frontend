@@ -4,7 +4,7 @@ import Flex from '@/components/ui/chakra/Flex';
 import Text from '@/components/ui/chakra/Text';
 import { Input, InputProps } from '@chakra-ui/react';
 interface FilterProps {
-  inputProps: InputProps;
+  inputProps?: InputProps;
   name: string;
 }
 export default function Filter({ name, inputProps }: FilterProps) {
