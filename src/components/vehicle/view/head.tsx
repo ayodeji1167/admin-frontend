@@ -22,7 +22,13 @@ export default function Head({ id }: { id: string }) {
         </Button>
       </Box>
 
-      <CustomModal isOpen={isOpen} onClose={onClose}>
+      <CustomModal
+        modalContentProps={{
+          minW: { base: '95%', md: '50rem' },
+        }}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <LogServiceModal id={id} />
       </CustomModal>
     </Flex>
