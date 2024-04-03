@@ -1,0 +1,15 @@
+export enum ServiceTypeEnum {
+  repair = 'REPAIR',
+  mantainance = 'MANTAINANCE',
+  paint = 'PAINT',
+  TireRotation = 'TIRE_ROTATION',
+  OilChange = 'OIL_CHANGE',
+  BrakeRepair = 'BRAKE_REPAIR',
+  TransmissionFlush = 'TRANSMISSION_FLUSH',
+  BatteryReplacement = 'BATTERY_REPLACEMENT',
+  EngineTuneUp = 'ENGINE_TUNE_UP',
+  WheelAlignment = 'WHEEL_ALIGNMENT',
+  AirConditioningRepair = 'AIR_CONDITIONING_REPAIR',
+  HeadlightReplacement = 'HEADLIGHT_REPLACEMENT',
+  ExhaustSystemRepair = 'EXHAUST_SYSTEM_REPAIR',
+}
