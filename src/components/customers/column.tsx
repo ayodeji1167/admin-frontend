@@ -1,8 +1,8 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import Box from '@/components/ui/chakra/Box';
-// import RowActions from './RowActions';
 import { Checkbox } from '@chakra-ui/react';
 import { IUser } from '@/interface/user';
+import RowActions from './row-action-list';
 
 const columnHelper = createColumnHelper<IUser>();
 
@@ -33,9 +33,9 @@ export const columnDef = [
     id: 'address',
   }),
 
-  //   columnHelper.display({
-  //     id: 'actions',
-  //     cell: (props) => <RowActions row={props.row} />,
-  //     header: 'Actions',
-  //   }),
+  columnHelper.display({
+    id: 'actions',
+    cell: (props) => <RowActions row={props.row} />,
+    header: 'Actions',
+  }),
 ];
