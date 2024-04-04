@@ -65,6 +65,9 @@ export default function Custompopover({
                   gap={'.6rem'}
                   p={'1rem'}
                   color={item.color}
+                  _hover={{
+                    bg: '#3855B30A',
+                  }}
                 >
                   <Icon as={item.icon} />
                   <Text>{item.name}</Text>
@@ -82,6 +85,9 @@ export default function Custompopover({
                 p={'1rem'}
                 onClick={item.clickFn}
                 color={item.color}
+                _hover={{
+                  bg: '#3855B30A',
+                }}
               >
                 <Icon as={item.icon} />
                 <Text>{item.name}</Text>
