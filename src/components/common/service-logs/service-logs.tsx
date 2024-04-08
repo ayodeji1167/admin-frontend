@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-
-import { columnDef } from './column';
 import { serviceLogs } from '@/data/service-logs';
 import CustomTable from '@/components/table/CustomTable';
 import { Box } from '@chakra-ui/react';
+import { columnDef } from './column';
 
 export default function ServiceLogs() {
   const [sorting, setSorting] = React.useState([
