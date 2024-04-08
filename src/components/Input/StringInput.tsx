@@ -30,7 +30,7 @@ export default function StringInput(props: StringInputProps) {
         {props.formControlProps?.label}
       </FormLabel>
       <Input
-        _placeholder={{ color: '#424955' }}
+        _placeholder={{ color: '#898A8C' }}
         {...props.inputProps}
         errorBorderColor="crimson"
         h={'3rem'}

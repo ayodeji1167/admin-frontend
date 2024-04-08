@@ -19,7 +19,7 @@ export default function Top() {
         alignItems={'center'}
       >
         <Text textStyle={'subHeading'}>customers</Text>
-        <Link href={'/vehicles/add'}>
+        <Link href={'/customers/add'}>
           <Button minW={'10rem'}>Add Customer</Button>
         </Link>
       </Flex>

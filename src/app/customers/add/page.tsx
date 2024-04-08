@@ -1,5 +1,10 @@
+import AddCustomer from '@/components/customers/add/add-customer';
 import React from 'react';
 
 export default function page() {
-  return <div>AddVehicle</div>;
+  return (
+    <div>
+      <AddCustomer />
+    </div>
+  );
 }
