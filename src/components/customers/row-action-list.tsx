@@ -12,14 +12,14 @@ export default function RowActions(props: any) {
       icon: PiUserCircleLight,
       name: 'View Customer Info',
       color: '#56585A',
-      path: `/customers/${props.row.original.userId}`,
+      path: `/customers/${props.row.original.id}`,
     },
     {
       isLink: true,
       icon: CiEdit,
       name: 'Edit Customer',
       color: '#56585A',
-      path: `/customers/edit/${props.row.original.userId}`,
+      path: `/customers/edit/${props.row.original.id}`,
     },
     {
       isLink: false,
