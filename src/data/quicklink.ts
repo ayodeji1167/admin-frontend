@@ -20,10 +20,10 @@ export const quicklink: Array<QuickLinkProps> = [
     path: '/customers',
   },
   {
-    name: 'Technicians',
-    description: 'View and assign tasks to technicians',
+    name: 'Services',
+    description: 'View and assign services',
     image: technician,
-    path: '/technicians',
+    path: '/services',
   },
   {
     name: 'Invoice',
