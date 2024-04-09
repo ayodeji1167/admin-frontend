@@ -1,13 +1,22 @@
-import { Center, CenterProps } from '@chakra-ui/react';
+import { StatusEnum } from '@/enum/status';
+import { getColor } from '@/utils/get-status-color';
+import { CenterProps, Center, Text } from '@chakra-ui/react';
 import React from 'react';
 
 export default function Status({
   status,
   ...styles
-}: { status: string } & CenterProps) {
+}: { status: StatusEnum } & CenterProps) {
   return (
-    <Center textTransform={'capitalize'} {...styles}>
-      {status.toLowerCase()}
+    <Center
+      minW={'6.7rem'}
+      rounded={'.6rem'}
+      h={'2.3rem'}
+      bg={getColor(status).bgColor}
+      textTransform={'capitalize'}
+      {...styles}
+    >
+      <Text color={getColor(status).textColor}> {status.toLowerCase()}</Text>
     </Center>
   );
 }

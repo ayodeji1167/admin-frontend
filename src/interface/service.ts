@@ -1,4 +1,5 @@
 import { ServiceTypeEnum } from '@/enum/service';
+import { StatusEnum } from '@/enum/status';
 
 export interface IService {
   type: ServiceTypeEnum;
@@ -15,7 +16,7 @@ export interface IService {
 
   invoiceId?: string;
 
-  status: string;
+  status: StatusEnum;
 
   note: string;
 

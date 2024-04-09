@@ -28,7 +28,7 @@ export default function MetricCard({ name, value, icon }: MetricCardProps) {
         </Text>
       </Box>
       <Box>
-        <Icon fontSize={'7rem'} as={icon} />
+        <Icon fontSize={'5rem'} as={icon} />
       </Box>
     </Flex>
   );
