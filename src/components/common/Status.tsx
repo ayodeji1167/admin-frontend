@@ -16,7 +16,10 @@ export default function Status({
       textTransform={'capitalize'}
       {...styles}
     >
-      <Text color={getColor(status).textColor}> {status.toLowerCase()}</Text>
+      <Text fontWeight={600} color={getColor(status).textColor}>
+        {' '}
+        {status.toLowerCase()}
+      </Text>
     </Center>
   );
 }
