@@ -17,7 +17,6 @@ export default function Status({
       {...styles}
     >
       <Text fontWeight={600} color={getColor(status).textColor}>
-        {' '}
         {status.toLowerCase()}
       </Text>
     </Center>

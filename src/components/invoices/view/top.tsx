@@ -8,12 +8,10 @@ import Button from '@/components/ui/chakra/Button';
 import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import { invoicessMetrics } from './data';
 import MetricCard from '@/components/common/MetricCard';
-import { useDisclosure } from '@chakra-ui/react';
-import CustomModal from '@/components/common/CustomModal';
-import LogServiceModal from '@/components/vehicle/view/log-service-modal';
+
+import Link from 'next/link';
 
 export default function Top() {
-  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <Box mt={'1.5rem'}>
       <Flex
@@ -22,9 +20,10 @@ export default function Top() {
         alignItems={'center'}
       >
         <Text textStyle={'subHeading'}>Invoices</Text>
-        <Button onClick={onOpen} minW={'10rem'}>
-          Create new Invoice
-        </Button>
+
+        <Link href={'/invoices/add'}>
+          <Button minW={'10rem'}>Create new Invoice</Button>
+        </Link>
       </Flex>
       <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={4}>
         {invoicessMetrics.map((item, index) => (
@@ -33,16 +32,6 @@ export default function Top() {
           </GridItem>
         ))}
       </SimpleGrid>
-
-      <CustomModal
-        modalContentProps={{
-          minW: { base: '95%', md: '50rem' },
-        }}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <LogServiceModal />
-      </CustomModal>
     </Box>
   );
 }
