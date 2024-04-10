@@ -21,6 +21,7 @@ import SearchVehicle from '@/components/common/search/SearchVehicle';
 import { GoPlus } from 'react-icons/go';
 import StringInput from '@/components/Input/StringInput';
 import { useToast } from '@/hooks/useToast';
+import { BsTrash } from 'react-icons/bs';
 
 export default function AddInvoice() {
   const toast = useToast();
@@ -37,9 +38,24 @@ export default function AddInvoice() {
       toast({ description: 'Add service/amount', status: 'error' });
       return;
     }
+    invoiceItems.forEach((item) => {
+      if (item.service.toLowerCase() === service.toLowerCase()) {
+        const newItems = invoiceItems.filter(
+          (item) => item.service.toLowerCase() !== service.toLowerCase()
+        );
+        setInvoiceItems(newItems);
+      }
+    });
     setInvoiceItems((prev) => [...prev, { service, amount }]);
     setAmount('');
     setService('');
+  };
+
+  const deleteItem = (service: string) => {
+    const newItems = invoiceItems.filter(
+      (item) => item.service.toLowerCase() !== service.toLowerCase()
+    );
+    setInvoiceItems(newItems);
   };
 
   return (
@@ -184,19 +200,36 @@ export default function AddInvoice() {
                   </GridItem>
                 </SimpleGrid>
 
-                {invoiceItems.map((item) => (
-                  <Stack key={item.service}>
-                    <Flex
-                      alignItems={'center'}
-                      justifyContent={'space-between'}
-                      py={'.5rem'}
-                      borderBottom={'1px solid black'}
-                    >
-                      <Text>{item.service}</Text>
-                      <Text>{item.amount}</Text>
-                    </Flex>
-                  </Stack>
-                ))}
+                <Box mt={'2rem'}>
+                  {invoiceItems.map((item) => (
+                    <Stack key={item.service}>
+                      <Flex
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                        py={'.5rem'}
+                        borderBottom={'1px solid black'}
+                        textTransform={'uppercase'}
+                        fontWeight={600}
+                      >
+                        <Flex flex={1} justifyContent={'space-between'}>
+                          <Text textTransform={'uppercase'} fontWeight={600}>
+                            {item.service}
+                          </Text>
+                          <Text>{item.amount}</Text>
+                        </Flex>
+
+                        <Box ml={'3rem'}>
+                          <BsTrash
+                            onClick={() => deleteItem(item.service)}
+                            size={'1.3rem'}
+                            color="red"
+                            cursor={'pointer'}
+                          />
+                        </Box>
+                      </Flex>
+                    </Stack>
+                  ))}
+                </Box>
               </Box>
             </Box>
           </Box>
