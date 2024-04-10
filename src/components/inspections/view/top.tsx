@@ -19,17 +19,17 @@ export default function Top() {
         justifyContent={'space-between'}
         alignItems={'center'}
       >
-        <Text textStyle={'subHeading'}>Invoices</Text>
+        <Text textStyle={'subHeading'}>Inspection Reports</Text>
 
-        <Link href={'/invoices/add'}>
-          <Button minW={'10rem'}>Create new Invoice</Button>
+        <Link href={'/inspections/add'}>
+          <Button minW={'12rem'}>Create new Inspection</Button>
         </Link>
       </Flex>
       <SimpleGrid
         h={'10rem'}
         gap={'1.4rem'}
         row={1}
-        columns={{ base: 2, md: 4 }}
+        columns={{ base: 2, md: 3 }}
       >
         {invoicessMetrics.map((item, index) => (
           <GridItem key={index}>

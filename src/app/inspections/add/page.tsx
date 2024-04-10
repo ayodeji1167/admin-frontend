@@ -1,5 +1,10 @@
+import AddInspection from '@/components/inspections/add/add-inspection';
 import React from 'react';
 
 export default function page() {
-  return <div>this is add inspe</div>;
+  return (
+    <div>
+      <AddInspection />
+    </div>
+  );
 }
