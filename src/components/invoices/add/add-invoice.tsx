@@ -22,6 +22,7 @@ import { GoPlus } from 'react-icons/go';
 import StringInput from '@/components/Input/StringInput';
 import { useToast } from '@/hooks/useToast';
 import { BsTrash } from 'react-icons/bs';
+import NumericInput from '@/components/Input/NumericInput';
 
 export default function AddInvoice() {
   const toast = useToast();
@@ -185,7 +186,7 @@ export default function AddInvoice() {
                     />
                   </GridItem>{' '}
                   <GridItem>
-                    <StringInput
+                    <NumericInput
                       formControlProps={{
                         label: 'Amount',
                       }}
