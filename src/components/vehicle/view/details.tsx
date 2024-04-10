@@ -76,7 +76,7 @@ export default function Details({ id }: { id: string }) {
         <SimpleGrid
           rowGap={'.9rem'}
           columnGap={'1.2rem'}
-          columns={2}
+          columns={{ base: 1, md: 2 }}
           mt={'2.5rem'}
           pb={'2rem'}
         >

@@ -23,7 +23,12 @@ export default function Top() {
           <Button minW={'10rem'}>Add Customer</Button>
         </Link>
       </Flex>
-      <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>
+      <SimpleGrid
+        h={'10rem'}
+        gap={'1.4rem'}
+        row={1}
+        columns={{ base: 2, md: 3 }}
+      >
         {customerMetrics.map((item, index) => (
           <GridItem key={index}>
             <MetricCard {...item} />

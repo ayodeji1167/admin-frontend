@@ -16,7 +16,7 @@ export default function Userform() {
         User Information
       </Text>
       <Divider />
-      <SimpleGrid mt={'1.5rem'} gap={'1.2rem'} columns={2}>
+      <SimpleGrid mt={'1.5rem'} gap={'1.2rem'} columns={{ base: 1, md: 2 }}>
         <GridItem>
           <StringInput
             formControlProps={{

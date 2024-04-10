@@ -25,7 +25,12 @@ export default function Top() {
           <Button minW={'10rem'}>Create new Invoice</Button>
         </Link>
       </Flex>
-      <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={4}>
+      <SimpleGrid
+        h={'10rem'}
+        gap={'1.4rem'}
+        row={1}
+        columns={{ base: 2, md: 4 }}
+      >
         {invoicessMetrics.map((item, index) => (
           <GridItem key={index}>
             <MetricCard {...item} />

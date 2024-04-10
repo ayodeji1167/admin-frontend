@@ -40,7 +40,7 @@ export default function CustomerInformation() {
         <SimpleGrid
           rowGap={'.9rem'}
           columnGap={'1.2rem'}
-          columns={2}
+          columns={{ base: 1, md: 2 }}
           mt={'2.5rem'}
           pb={'2rem'}
         >
@@ -77,7 +77,7 @@ export default function CustomerInformation() {
         <SimpleGrid
           rowGap={'.9rem'}
           columnGap={'1.2rem'}
-          columns={2}
+          columns={{ base: 1, md: 2 }}
           mt={'1rem'}
           pb={'2rem'}
         >

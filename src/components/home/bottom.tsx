@@ -13,7 +13,7 @@ export default function Bottom() {
       <Text mb={'2.3rem'} textStyle={'subHeading'}>
         Quick Access Links
       </Text>
-      <SimpleGrid rowGap={'2.5rem'} gap={'1.4rem'} columns={3}>
+      <SimpleGrid rowGap={'2.5rem'} gap={'1.4rem'} columns={{ base: 2, md: 3 }}>
         {quicklink.map((item, index) => (
           <GridItem key={index}>
             <Link href={item.path}>

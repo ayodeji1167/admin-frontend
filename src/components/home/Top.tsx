@@ -20,7 +20,12 @@ export default function Top() {
         <Text textStyle={'subHeading'}>Overview</Text>
         <Button minW={'10rem'}>Log Services</Button>
       </Flex>
-      <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>
+      <SimpleGrid
+        h={'10rem'}
+        gap={'1.4rem'}
+        row={1}
+        columns={{ base: 2, md: 3 }}
+      >
         {dashboardMetrics.map((item, index) => (
           <GridItem key={index}>
             <MetricCard {...item} />
