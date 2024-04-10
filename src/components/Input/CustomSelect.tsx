@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import { Text } from '@chakra-ui/react';
 
@@ -10,21 +10,23 @@ interface CustomSelectProps {
   placeholder?: string;
   label?: string;
   isDisabled?: boolean;
+  selectedOption?: any;
+  setSelectedOption?: any;
 }
 
 export default function CustomSelect({
   options,
-  value,
   onChange,
   placeholder,
   isDisabled,
   label,
+  selectedOption,
 }: CustomSelectProps) {
-  const [selectedValue, setSelectedValue] = useState(value);
+  // const [selectedValue, setSelectedValue] = useState(value);
 
   const handleSelectChange = (selectedOption: any) => {
-    setSelectedValue(selectedOption);
-    onChange(selectedOption.value); // Pass value to parent component
+    // setSelectedValue(selectedOption);
+    onChange(selectedOption); // Pass value to parent component
   };
   return (
     <div>
@@ -38,7 +40,7 @@ export default function CustomSelect({
       </Text>
       <Select
         id="select-custom"
-        value={selectedValue}
+        value={selectedOption}
         onChange={handleSelectChange}
         options={options}
         placeholder={placeholder || 'Select an option'}

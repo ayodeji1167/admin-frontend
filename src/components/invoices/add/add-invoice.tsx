@@ -19,20 +19,23 @@ import UserForm from './user-form';
 import VehicleSwitch from '@/components/common/switch/vehicle-switch';
 import SearchVehicle from '@/components/common/search/SearchVehicle';
 import { GoPlus } from 'react-icons/go';
-import StringInput from '@/components/Input/StringInput';
 import { useToast } from '@/hooks/useToast';
 import { BsTrash } from 'react-icons/bs';
 import NumericInput from '@/components/Input/NumericInput';
+import CustomSelect from '@/components/Input/CustomSelect';
+import { serviceOptions } from '@/data/options/invoices';
 
 export default function AddInvoice() {
   const toast = useToast();
   const [isExistingCustomer, setIsExistingCustomer] = useState(false);
   const [isExistingVehicle, setIsExistingVehicle] = useState(false);
   const [invoiceItems, setInvoiceItems] = useState<
-    Array<{ service: string; amount: string }>
+    Array<{ service: string; amount: any; formattedAmount: string }>
   >([]);
   const [service, setService] = useState('');
   const [amount, setAmount] = useState('');
+  const [formattedAmount, setFormattedAmount] = useState('');
+  const [selectedOption, setSelectedOption] = useState<any>();
 
   const addItem = () => {
     if (!service || !amount) {
@@ -47,9 +50,11 @@ export default function AddInvoice() {
         setInvoiceItems(newItems);
       }
     });
-    setInvoiceItems((prev) => [...prev, { service, amount }]);
+    setInvoiceItems((prev) => [...prev, { service, amount, formattedAmount }]);
     setAmount('');
     setService('');
+    setFormattedAmount('');
+    setSelectedOption(null);
   };
 
   const deleteItem = (service: string) => {
@@ -59,6 +64,10 @@ export default function AddInvoice() {
     setInvoiceItems(newItems);
   };
 
+  const onSave = () => {
+    // console.log('invoices items are ====>', invoiceItems);
+    return invoiceItems;
+  };
   return (
     <div>
       <SizeWrapper>
@@ -84,7 +93,9 @@ export default function AddInvoice() {
               >
                 Back
               </Button>
-              <Button minW={'9rem'}>Save and Submit</Button>
+              <Button onClick={onSave} minW={'9rem'}>
+                Save and Submit
+              </Button>
             </Flex>
           </Flex>
           <Box bg={'white'} pb={'3rem'}>
@@ -172,36 +183,43 @@ export default function AddInvoice() {
               <Box px={'2.5rem'} mt={'1.5rem'}>
                 <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 2 }}>
                   <GridItem>
-                    <StringInput
-                      formControlProps={{
-                        label: 'Service',
+                    <CustomSelect
+                      placeholder="Type to search..."
+                      options={serviceOptions.map((item) => ({
+                        label: item,
+                        value: item,
+                      }))}
+                      onChange={(e) => {
+                        setService(e.value);
+                        setSelectedOption(e);
                       }}
-                      inputProps={{
-                        placeholder: 'Enter Service',
-                        onChange: (e) => {
-                          setService(e.target.value);
-                        },
-                        value: service,
-                      }}
+                      label="Service"
+                      selectedOption={selectedOption}
                     />
-                  </GridItem>{' '}
+                  </GridItem>
                   <GridItem>
                     <NumericInput
+                      onValueChange={(values: any) => {
+                        setAmount(values.floatValue);
+                        setFormattedAmount(values.formattedValue);
+                      }}
                       formControlProps={{
                         label: 'Amount',
                       }}
                       inputProps={{
                         placeholder: 'Enter amount',
-                        onChange: (e) => {
-                          setAmount(e.target.value);
-                        },
+                        // onChange: (e) => {
+                        //   console.log('e is ', e.target);
+
+                        //   setAmount(e.target.value);
+                        // },
                         value: amount,
                       }}
                     />
                   </GridItem>
                 </SimpleGrid>
 
-                <Box mt={'2rem'}>
+                <Box minH={'20vh'} mt={'2rem'}>
                   {invoiceItems.map((item) => (
                     <Stack key={item.service}>
                       <Flex
@@ -216,7 +234,7 @@ export default function AddInvoice() {
                           <Text textTransform={'uppercase'} fontWeight={600}>
                             {item.service}
                           </Text>
-                          <Text>{item.amount}</Text>
+                          <Text>{item.formattedAmount}</Text>
                         </Flex>
 
                         <Box ml={'3rem'}>

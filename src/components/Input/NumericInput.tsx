@@ -17,6 +17,7 @@ type NumericInputProps = {
   errorMessage?: string | undefined;
   warningMessage?: string | undefined;
   touched?: boolean | undefined;
+  onValueChange: any;
 };
 export default function NumericInput(props: NumericInputProps) {
   return (
@@ -42,6 +43,7 @@ export default function NumericInput(props: NumericInputProps) {
       <NumericFormat
         thousandSeparator=","
         prefix="₦"
+        onValueChange={props.onValueChange}
         // @ts-ignore
         value={props.inputProps?.value as number}
         customInput={Input}
