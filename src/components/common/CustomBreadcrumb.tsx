@@ -8,12 +8,12 @@ import { usePathname } from 'next/navigation';
 export default function CustomBreadcrumb() {
   const pathname = usePathname();
 
-  const crumbs = pathname.split('/').filter(Boolean); // Remove empty path segments
+  const crumbs = pathname?.split('/').filter(Boolean); // Remove empty path segments
 
   return (
     <div>
       <Breadcrumb separator=">">
-        {crumbs.map((crumb, index) => {
+        {crumbs?.map((crumb, index) => {
           const isCurrentPage = index === crumbs.length - 1;
           const href = crumbs.slice(0, index + 1).join('/');
 
