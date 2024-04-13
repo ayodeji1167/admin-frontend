@@ -4,7 +4,10 @@ import Top from './Top';
 import Bottom from './bottom';
 import Box from '@/components/ui/chakra/Box';
 
-export default function Home() {
+export default async function Home() {
+  // const session = await getServerAuthSession();
+  // console.log('session from home  is ', session?.user);
+
   return (
     <div>
       <SizeWrapper>

@@ -1,3 +1,4 @@
+import { env } from '@/constants/env';
 import type { NextAuthOptions } from 'next-auth';
 import { getServerSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -14,40 +15,45 @@ export const config = {
         email: {},
         password: {},
       },
-      async authorize(credentials, req) {
-        const res = await fetch('/your/endpoint', {
+      async authorize(credentials) {
+        // console.log('from authoriza ', credentials);
+        const res = await fetch(`${env.apiUrl}/api/v1/admin/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' },
         });
         const user = await res.json();
+        // console.log('res is ', res);
 
         // If no error and we have user data, return it
         if (res.ok && user) {
-          return user;
+          return { ...user.data.user, access_token: user.data.access_token };
         }
-        return req;
+        return null;
       },
     }),
   ],
-  session: {
-    strategy: 'jwt',
-  },
+  // session: {
+  //   strategy: 'jwt',
+  // },
   pages: {
     signIn: '/auth/login',
+    error: '/auth/login',
   },
-  // callbacks: {
-  //   async jwt({ token, account, profile }) {
-  //     if (account && account.type === 'credentials') {
-  //       //(2)
-  //       token.userId = account.providerAccountId; // this is Id that coming from authorize() callback
-  //     }
-  //     return token;
-  //   },
-  //   async session({ session, token, user }) {
-  //     return session;
-  //   },
-  // },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.user) {
+        session.user = token.user as any;
+      }
+      return session;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET as string,
 } satisfies NextAuthOptions;
 

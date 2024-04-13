@@ -1,13 +1,49 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SizeWrapper from '../sizewrapper/SizeWrapper';
 import { Box, Button, Center, Stack, Text } from '@chakra-ui/react';
 import StringInput from '../Input/StringInput';
 import PasswordInput from '../Input/PasswordInput';
+import { signIn, useSession } from 'next-auth/react';
+import { useToast } from '@/hooks/useToast';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setloading] = useState(false);
+  const toast = useToast();
+
+  const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setloading(true);
+    const response = await signIn('credentials', {
+      email,
+      password,
+      callbackUrl: '/',
+      redirect: false,
+    });
+    if (response?.ok) {
+      setloading(false);
+
+      router.push('/');
+      return;
+    } else {
+      setloading(false);
+      toast({ description: 'Unable to login', status: 'error' });
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (session?.data?.user?.access_token) {
+      router.push('/');
+    }
+  }, [session]);
+
   return (
     <div>
       <SizeWrapper>
@@ -22,22 +58,24 @@ export default function Login() {
             <Text textAlign={'center'} textStyle={'subHeading'} mb={'1rem'}>
               Login{' '}
             </Text>
-            <form action="">
+            <form onSubmit={loginUser}>
               <Stack spacing={'2rem'}>
                 <StringInput
-                  formControlProps={{ label: 'Email' }}
+                  formControlProps={{ label: 'Email', isRequired: true }}
                   inputProps={{
                     placeholder: 'Enter email',
                     value: email,
+                    type: 'email',
                     onChange: (e) => {
                       setEmail(e.target.value);
                     },
                   }}
                 />
                 <PasswordInput
-                  formControlProps={{ label: 'Password' }}
+                  formControlProps={{ label: 'Password', isRequired: true }}
                   inputProps={{
                     placeholder: 'Enter password',
+
                     value: password,
                     onChange: (e) => {
                       setPassword(e.target.value);
@@ -51,8 +89,9 @@ export default function Login() {
                   minW={'100%'}
                   mt={'2rem'}
                   flex={1}
+                  type="submit"
                 >
-                  Login
+                  {loading ? 'Loading...' : 'Login'}
                 </Button>
               </Stack>
             </form>
