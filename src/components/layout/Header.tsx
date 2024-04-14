@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Flex from '@/components/ui/chakra/Flex';
 import Box from '@/components/ui/chakra/Box';
 import Text from '@/components/ui/chakra/Text';
@@ -9,14 +9,10 @@ import Link from 'next/link';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import HeaderMenu from './HeaderMenu';
 import SizeWrapper from '../sizewrapper/SizeWrapper';
-import { useAuth } from '@/hooks/useAuth';
+import { useSession } from 'next-auth/react';
 
 export default function Header() {
-  const { isloggedIn } = useAuth();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const session = useSession();
 
   return (
     <Box w={'100%'} overflow={'hidden'} py={'1rem'} bg={'#174777'}>
@@ -26,7 +22,7 @@ export default function Header() {
             <Logo to="/" />
           </Box>
 
-          {mounted && isloggedIn && (
+          {session?.data?.user && (
             <>
               <Flex alignItems={'center'} gap="1.2rem">
                 {navs.map((item) => (

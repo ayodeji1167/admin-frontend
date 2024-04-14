@@ -19,15 +19,14 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { PiSignOutLight } from 'react-icons/pi';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 export default function HeaderMenu() {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const router = useRouter();
   const { logout } = useAuth();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut();
     logout && logout();
     onClose();
-    router.refresh();
   };
 
   return (
