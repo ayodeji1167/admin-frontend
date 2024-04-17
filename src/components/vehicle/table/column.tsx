@@ -27,16 +27,16 @@ export const columnDef = [
     header: 'Model',
     id: 'model',
   }),
-  columnHelper.accessor('lastServiceDate', {
-    cell: (info) => <Box>{info.getValue()}</Box>,
-    header: 'Last Service Date',
-    id: 'last-service-date',
+  columnHelper.accessor((row) => `${row.user.firstName} ${row.user.lastName}`, {
+    cell: (info) => <Box fontWeight={'600'}>{info.getValue()}</Box>,
+    header: 'Owner',
+    id: 'owner',
   }),
-  columnHelper.accessor('status', {
-    cell: (info) => <Box>{info.getValue()}</Box>,
-    header: 'Status',
-    id: 'status',
-  }),
+  // columnHelper.accessor('status', {
+  //   cell: (info) => <Box>{info.getValue()}</Box>,
+  //   header: 'Status',
+  //   id: 'status',
+  // }),
 
   columnHelper.display({
     id: 'actions',

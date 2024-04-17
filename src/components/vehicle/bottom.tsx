@@ -9,7 +9,6 @@ import LottieLoader from '../Loader/LottieLoader';
 import { getCoreRowModel, getPaginationRowModel } from '@tanstack/react-table';
 
 export default function Bottom() {
-  const { data, isLoading } = useGetAllvehicles();
   const [sorting, setSorting] = React.useState([
     {
       id: 'name',
@@ -18,9 +17,10 @@ export default function Bottom() {
   ]);
 
   const [pagination, setPagination] = React.useState({
-    pageIndex: data?.data.pageNo || 0,
-    pageSize: data?.data.pageSize || 10,
+    pageIndex: 0,
+    pageSize: 10,
   });
+  const { data, isLoading } = useGetAllvehicles(pagination);
 
   // console.log('data is', data);
 

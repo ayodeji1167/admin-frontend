@@ -14,7 +14,7 @@ export interface IVehicle {
 
   businessId: string;
 
-  userId: string;
+  user: { firstName: string; lastName: string };
 
   color: string;
 
