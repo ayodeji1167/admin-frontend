@@ -9,12 +9,17 @@ import {
   Image,
   SimpleGrid,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
 
 import Link from 'next/link';
 import { useGetVehiclebyId } from '@/app/api/vehicles/get-vehicle-by-id';
 import LottieLoader from '@/components/Loader/LottieLoader';
+import CustomModal from '@/components/common/CustomModal';
+// import AddUserModal from './add-user-modal';
+import Userform from '@/components/userform/userform';
+import { useAddUser } from '@/app/api/vehicles/add-user';
 
 function VehicleItem({
   name,
@@ -39,12 +44,19 @@ function VehicleItem({
   );
 }
 export default function Details({ id }: { id: string }) {
-  const { data, isLoading } = useGetVehiclebyId(id);
+  const { data, isLoading, refetch } = useGetVehiclebyId(id);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { mutateAsync, isPending } = useAddUser();
   // console.log('vehicle is ', data);
 
   const images = data?.data?.images?.map((item) => item.url);
   const ownerName = `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
   const hasOwner = Boolean(data?.data?.user);
+  const addUser = async (values: any) => {
+    await mutateAsync({ data: values, vehicleId: id as string });
+    refetch();
+    onClose();
+  };
   if (isLoading) {
     return <LottieLoader />;
   } else {
@@ -136,7 +148,7 @@ export default function Details({ id }: { id: string }) {
                 This vehicle is owned by{' '}
                 <Link
                   href={`/customers/${data?.data.user._id}`}
-                  style={{ color: '#2574C3' }}
+                  style={{ color: '#2574C3', marginLeft: '10px' }}
                 >
                   {ownerName}.
                 </Link>{' '}
@@ -148,10 +160,16 @@ export default function Details({ id }: { id: string }) {
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle has no user
               </Text>
-              <Button minW={'13rem'}>Add user</Button>
+              <Button minW={'10rem'} onClick={onOpen}>
+                Add user
+              </Button>
             </Center>
           )}
         </Box>
+
+        <CustomModal isOpen={isOpen} onClose={onClose}>
+          <Userform isLoading={isPending} handleApiSubmit={addUser} />
+        </CustomModal>
       </Box>
     );
   }

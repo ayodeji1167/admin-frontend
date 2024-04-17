@@ -137,7 +137,7 @@ export default function Bottom() {
             </GridItem>
           </SimpleGrid>
           <Box mt={'3.5rem'}>
-            <Userform />
+            <Userform handleApiSubmit={() => {}} />
           </Box>
           <Center mt={'4rem'}>
             <Button minW={'11rem'}>Save</Button>
