@@ -28,7 +28,11 @@ export const columnDef = [
     id: 'model',
   }),
   columnHelper.accessor((row) => `${row.user.firstName} ${row.user.lastName}`, {
-    cell: (info) => <Box fontWeight={'600'}>{info.getValue()}</Box>,
+    cell: (info) => (
+      <Box textTransform={'uppercase'} fontWeight={'600'}>
+        {info.getValue()}
+      </Box>
+    ),
     header: 'Owner',
     id: 'owner',
   }),
