@@ -12,14 +12,14 @@ export default function RowActions(props: any) {
       icon: CiViewList,
       name: 'View Vehicle Info',
       color: '#56585A',
-      path: `/vehicles/${props.row.original.userId}`,
+      path: `/vehicles/${props.row.original._id}`,
     },
     {
       isLink: true,
       icon: CiEdit,
       name: 'Edit Vehicle',
       color: '#56585A',
-      path: `/vehicles/edit/${props.row.original.userId}`,
+      path: `/vehicles/edit/${props.row.original._id}`,
     },
     {
       isLink: false,

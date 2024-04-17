@@ -3,6 +3,7 @@ import { IFiles } from './file';
 
 export interface IVehicle {
   name: string;
+  _id: string;
 
   make?: string;
 
