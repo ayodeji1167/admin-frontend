@@ -15,7 +15,7 @@ export interface IVehicle {
 
   businessId: string;
 
-  user: { firstName: string; lastName: string };
+  user: { firstName: string; lastName: string; _id: string };
 
   color: string;
 
@@ -34,6 +34,9 @@ export interface IVehicle {
   lastRepairDate: string;
 
   status: string;
+  registrationNumber: string;
+  ownershipType: string;
+  year: string;
 }
 
 export interface GetAllVehicleResponseType {
