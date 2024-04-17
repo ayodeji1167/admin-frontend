@@ -26,9 +26,10 @@ export default function Login() {
       callbackUrl: '/',
       redirect: false,
     });
+    // console.log('response is ', response?.error);
+
     if (response?.ok) {
       setloading(false);
-
       router.push('/');
       return;
     } else {
@@ -39,7 +40,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (session?.data?.user?.access_token) {
+    if (session?.data?.user) {
       router.push('/');
     }
   }, [session]);

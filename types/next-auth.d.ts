@@ -11,7 +11,31 @@ declare module 'next-auth' {
       lastName: string;
       email: string;
       role: string;
-      access_token: string;
     } & DefaultSession['user'];
+    backendTokens: {
+      jwtExpirationTime: any;
+      accessToken: string;
+      refreshToken: string;
+    };
+  }
+}
+
+import { JWT } from 'next-auth/jwt';
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    user: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      role: string;
+    };
+    backendTokens: {
+      jwtExpirationTime: any;
+
+      accessToken: string;
+      refreshToken: string;
+    };
   }
 }

@@ -34,3 +34,10 @@ export interface IVehicle {
 
   status: string;
 }
+
+export interface GetAllVehicleResponseType {
+  pageNo: number;
+  total: number;
+  pageSize: number;
+  vehicles: Array<IVehicle>;
+}

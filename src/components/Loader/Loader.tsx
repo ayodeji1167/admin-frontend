@@ -12,7 +12,7 @@ export const LogoLoader = ({ text = 'Loading...' }: Props) => {
       left={0}
       role="status"
       w={'full'}
-      h={'100%'}
+      h={'100vh'}
       overflow="hidden"
       inset={0}
     >
@@ -21,11 +21,11 @@ export const LogoLoader = ({ text = 'Loading...' }: Props) => {
         <Box w={'3rem'}>
           <Logo />
         </Box>
-        <Text fontSize={'xs'} fontWeight={'semibold'} color={'primary.100'}>
+        <Text fontSize={'1.4re'} fontWeight={'semibold'} color={'primary.100'}>
           {text}
         </Text>
       </Center>
-      <VisuallyHidden>Loading...</VisuallyHidden>
+      <VisuallyHidden>Loading from logo loader...</VisuallyHidden>
     </Box>
   );
 };
