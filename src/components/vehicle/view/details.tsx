@@ -143,7 +143,7 @@ export default function Details({ id }: { id: string }) {
           </SimpleGrid>
 
           {hasOwner ? (
-            <Center gap={'1.3rem'}>
+            <Center mt={'2rem'} gap={'1.3rem'}>
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle is owned by{' '}
                 <Link
@@ -156,7 +156,7 @@ export default function Details({ id }: { id: string }) {
               <Button minW={'13rem'}>Edit Owners information</Button>
             </Center>
           ) : (
-            <Center gap={'2.3rem'}>
+            <Center mt={'2rem'} gap={'2.3rem'}>
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle has no user
               </Text>
