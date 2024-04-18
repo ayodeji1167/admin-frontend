@@ -51,7 +51,12 @@ export default function Details({ id }: { id: string }) {
   const { mutateAsync, isPending } = useAddUser();
   // console.log('vehicle is ', data);
 
-  const images = data?.data?.images?.map((item) => item.url);
+  function getLastFourItems<T>(array: T[] | any): T[] {
+    return array?.slice(Math.max(array?.length - 4, 0));
+  }
+  const images = getLastFourItems<any>(
+    data?.data?.images?.map((item) => item.url)
+  );
   const ownerName = `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
   const hasOwner = Boolean(data?.data?.user);
   const hasImages = data?.data?.images && data?.data?.images?.length > 0;
@@ -88,6 +93,16 @@ export default function Details({ id }: { id: string }) {
         </Flex>
         <Divider />
         <Box px={'1.8rem'} pt={'1.8rem'}>
+          {hasImages && (
+            <Button
+              mb={'1rem'}
+              onClick={adImagesDisclosure.onOpen}
+              fontSize={'1.2rem'}
+              variant={'ghost'}
+            >
+              Add More images
+            </Button>
+          )}
           {hasImages ? (
             <SimpleGrid gap={'1.6rem'} columns={4}>
               {images?.map((item, index) => (
