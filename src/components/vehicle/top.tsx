@@ -7,10 +7,31 @@ import Text from '@/components/ui/chakra/Text';
 import Button from '@/components/ui/chakra/Button';
 import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import MetricCard from '../common/MetricCard';
-import { vehicleMetrics } from './data';
 import Link from 'next/link';
+import { useGetMetrics } from '@/app/api/vehicles/get-metrics';
+// import { vehicleMetrics } from './data';
+import { PiTruckLight } from 'react-icons/pi';
 
 export default function Top() {
+  const { data, isLoading } = useGetMetrics();
+
+  const vehicleMetrics = [
+    {
+      name: 'Vehicle Count',
+      value: String(data?.data?.totalNumberOfVehicles),
+      icon: PiTruckLight,
+    },
+    {
+      name: 'Average Service Interval',
+      value: String(data?.data?.averageServiceInterval),
+      icon: PiTruckLight,
+    },
+    {
+      name: 'Vehicle Added This Week',
+      value: String(data?.data?.vehicleAddedThisWeek),
+      icon: PiTruckLight,
+    },
+  ];
   return (
     <Box mt={'1.5rem'}>
       <Flex
@@ -29,9 +50,9 @@ export default function Top() {
         row={1}
         columns={{ base: 2, md: 3 }}
       >
-        {vehicleMetrics.map((item, index) => (
+        {vehicleMetrics?.map((item, index) => (
           <GridItem key={index}>
-            <MetricCard {...item} />
+            <MetricCard isLoading={isLoading} {...item} />
           </GridItem>
         ))}
       </SimpleGrid>
