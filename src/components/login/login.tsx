@@ -23,14 +23,15 @@ export default function Login() {
     const response = await signIn('credentials', {
       email,
       password,
-      callbackUrl: '/',
+      // callbackUrl: '/',
       redirect: false,
     });
     // console.log('response is ', response?.error);
 
     if (response?.ok) {
       setloading(false);
-      router.push('/');
+      // window.location = '/' as any;
+      router.refresh();
       return;
     } else {
       setloading(false);
