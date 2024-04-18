@@ -23,7 +23,7 @@ export default function Login() {
     const response = await signIn('credentials', {
       email,
       password,
-      // callbackUrl: '/',
+      callbackUrl: `${window.location.origin}/`,
       redirect: false,
     });
     // console.log('response is ', response?.error);
@@ -31,7 +31,7 @@ export default function Login() {
     if (response?.ok) {
       setloading(false);
       // window.location = '/' as any;
-      router.refresh();
+      // router.refresh();
       return;
     } else {
       setloading(false);
