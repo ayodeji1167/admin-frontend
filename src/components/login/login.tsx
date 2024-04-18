@@ -23,14 +23,14 @@ export default function Login() {
     const response = await signIn('credentials', {
       email,
       password,
-      callbackUrl: `${window.location.origin}/`,
+      // callbackUrl: `${window.location.origin}/`,
       redirect: false,
     });
     // console.log('response is ', response?.error);
 
     if (response?.ok) {
       setloading(false);
-      // window.location = '/' as any;
+      window.location = '/' as any;
       // router.refresh();
       return;
     } else {
