@@ -22,6 +22,7 @@ export const refreshTokenApi = async (refreshToken: string) => {
 export const config = {
   providers: [
     CredentialsProvider({
+      // id: 'Credentials',
       name: 'Credentials',
 
       credentials: {
