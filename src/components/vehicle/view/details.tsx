@@ -20,6 +20,7 @@ import CustomModal from '@/components/common/CustomModal';
 // import AddUserModal from './add-user-modal';
 import Userform from '@/components/userform/userform';
 import { useAddUser } from '@/app/api/vehicles/add-user';
+import UploadImages from './upload-images';
 
 function VehicleItem({
   name,
@@ -46,17 +47,22 @@ function VehicleItem({
 export default function Details({ id }: { id: string }) {
   const { data, isLoading, refetch } = useGetVehiclebyId(id);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const adImagesDisclosure = useDisclosure();
   const { mutateAsync, isPending } = useAddUser();
   // console.log('vehicle is ', data);
 
   const images = data?.data?.images?.map((item) => item.url);
   const ownerName = `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
   const hasOwner = Boolean(data?.data?.user);
+  const hasImages = data?.data?.images && data?.data?.images?.length > 0;
   const addUser = async (values: any) => {
     await mutateAsync({ data: values, vehicleId: id as string });
     refetch();
     onClose();
   };
+
+  // console.log('data is ', data);
+
   if (isLoading) {
     return <LottieLoader />;
   } else {
@@ -82,24 +88,44 @@ export default function Details({ id }: { id: string }) {
         </Flex>
         <Divider />
         <Box px={'1.8rem'} pt={'1.8rem'}>
-          <SimpleGrid gap={'1.6rem'} columns={4}>
-            {images?.map((item, index) => (
-              <GridItem
-                rounded={'.6rem'}
-                overflow={'hidden'}
-                objectFit={'cover'}
-                key={index}
-              >
-                <Image
-                  h={'100%'}
-                  w={'100%'}
+          {hasImages ? (
+            <SimpleGrid gap={'1.6rem'} columns={4}>
+              {images?.map((item, index) => (
+                <GridItem
+                  rounded={'.6rem'}
+                  overflow={'hidden'}
                   objectFit={'cover'}
-                  src={item}
-                  alt={'vehicles' + index}
-                />
-              </GridItem>
-            ))}
-          </SimpleGrid>
+                  key={index}
+                >
+                  <Image
+                    h={'100%'}
+                    w={'100%'}
+                    objectFit={'cover'}
+                    src={item}
+                    alt={'vehicles' + index}
+                  />
+                </GridItem>
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Flex
+              mb={'2rem'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              gap={'1rem'}
+            >
+              <Text fontWeight={'500'} fontSize={'2rem'} fontStyle={'italic'}>
+                Oops! This device has no image
+              </Text>
+              <Button
+                onClick={adImagesDisclosure.onOpen}
+                fontSize={'1.2rem'}
+                variant={'ghost'}
+              >
+                Add images
+              </Button>
+            </Flex>
+          )}
 
           <SimpleGrid
             rowGap={'.9rem'}
@@ -169,6 +195,14 @@ export default function Details({ id }: { id: string }) {
 
         <CustomModal isOpen={isOpen} onClose={onClose}>
           <Userform isLoading={isPending} handleApiSubmit={addUser} />
+        </CustomModal>
+
+        <CustomModal
+          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          isOpen={adImagesDisclosure.isOpen}
+          onClose={adImagesDisclosure.onClose}
+        >
+          <UploadImages onClose={adImagesDisclosure.onClose} id={id} />
         </CustomModal>
       </Box>
     );
