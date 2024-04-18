@@ -27,15 +27,18 @@ export const columnDef = [
     header: 'Model',
     id: 'model',
   }),
-  columnHelper.accessor((row) => `${row.user.firstName} ${row.user.lastName}`, {
-    cell: (info) => (
-      <Box textTransform={'uppercase'} fontWeight={'600'}>
-        {info.getValue()}
-      </Box>
-    ),
-    header: 'Owner',
-    id: 'owner',
-  }),
+  columnHelper.accessor(
+    (row) => `${row?.user?.firstName} ${row?.user?.lastName}`,
+    {
+      cell: (info) => (
+        <Box textTransform={'uppercase'} fontWeight={'600'}>
+          {info.getValue()}
+        </Box>
+      ),
+      header: 'Owner',
+      id: 'owner',
+    }
+  ),
   // columnHelper.accessor('status', {
   //   cell: (info) => <Box>{info.getValue()}</Box>,
   //   header: 'Status',
