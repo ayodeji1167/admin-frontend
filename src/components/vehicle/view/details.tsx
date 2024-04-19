@@ -21,6 +21,7 @@ import CustomModal from '@/components/common/CustomModal';
 import Userform from '@/components/userform/userform';
 import { useAddUser } from '@/app/api/vehicles/add-user';
 import UploadImages from './upload-images';
+import { useUpdateVehicle } from '@/app/api/vehicles/update-vehicle';
 
 function VehicleItem({
   name,
@@ -48,8 +49,12 @@ export default function Details({ id }: { id: string }) {
   const { data, isLoading, refetch } = useGetVehiclebyId(id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const adImagesDisclosure = useDisclosure();
+  const editUserDisclosure = useDisclosure();
   const { mutateAsync, isPending } = useAddUser();
-  // console.log('vehicle is ', data);
+  const {
+    mutateAsync: editVehicleMutateAsync,
+    isPending: editVehicleIspending,
+  } = useUpdateVehicle();
 
   function getLastFourItems<T>(array: T[] | any): T[] {
     return array?.slice(Math.max(array?.length - 4, 0));
@@ -64,6 +69,16 @@ export default function Details({ id }: { id: string }) {
     await mutateAsync({ data: values, vehicleId: id as string });
     refetch();
     onClose();
+  };
+  const editUser = async (values: any) => {
+    await editVehicleMutateAsync({
+      data: {
+        user: { ...values, _id: data?.data?.user?._id },
+      },
+      vehicleId: id as string,
+    });
+    refetch();
+    editUserDisclosure.onClose();
   };
 
   // console.log('data is ', data);
@@ -194,7 +209,9 @@ export default function Details({ id }: { id: string }) {
                   {ownerName}.
                 </Link>{' '}
               </Text>
-              <Button minW={'13rem'}>Edit Owners information</Button>
+              <Button onClick={editUserDisclosure.onOpen} minW={'13rem'}>
+                Edit Owners information
+              </Button>
             </Center>
           ) : (
             <Center mt={'2rem'} gap={'2.3rem'}>
@@ -210,6 +227,17 @@ export default function Details({ id }: { id: string }) {
 
         <CustomModal isOpen={isOpen} onClose={onClose}>
           <Userform isLoading={isPending} handleApiSubmit={addUser} />
+        </CustomModal>
+
+        <CustomModal
+          isOpen={editUserDisclosure.isOpen}
+          onClose={editUserDisclosure.onClose}
+        >
+          <Userform
+            isLoading={editVehicleIspending}
+            handleApiSubmit={editUser}
+            initialValues={data?.data.user}
+          />
         </CustomModal>
 
         <CustomModal

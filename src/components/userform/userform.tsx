@@ -13,18 +13,27 @@ import React, { FormEvent } from 'react';
 import StringInput from '../Input/StringInput';
 import { useFormik } from 'formik';
 import { IUser } from '@/interface/user';
-import { userFormInitialValues } from '@/formhandling/initial-values/user';
 import { userFormSchema } from '@/formhandling/validations/user';
 
 interface UserFormProps {
   handleApiSubmit: any;
   isLoading?: boolean;
+  initialValues?: Partial<IUser>;
 }
 
 export default function Userform({
   handleApiSubmit,
   isLoading,
+  initialValues,
 }: UserFormProps) {
+  const userFormInitialValues = {
+    firstName: initialValues?.firstName ? initialValues.firstName : '',
+    lastName: initialValues?.lastName ? initialValues.lastName : '',
+    email: initialValues?.email ? initialValues.email : '',
+    phoneNumber: initialValues?.phoneNumber ? initialValues.phoneNumber : '',
+    address: initialValues?.address ? initialValues.address : '',
+  };
+
   const { values, handleSubmit, errors, handleChange, touched, handleBlur } =
     useFormik<Partial<IUser>>({
       initialValues: userFormInitialValues,
@@ -76,7 +85,7 @@ export default function Userform({
                 type: 'text',
                 placeholder: 'Enter customer last name',
                 onChange: handleChange,
-                value: values.lastName,
+                value: initialValues?.lastName || values.lastName,
                 isInvalid: Boolean(errors.lastName && touched.lastName),
                 onBlur: handleBlur,
               }}
