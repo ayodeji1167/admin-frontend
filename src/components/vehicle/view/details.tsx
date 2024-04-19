@@ -88,7 +88,7 @@ export default function Details({ id }: { id: string }) {
           <Text textStyle={'subHeading'}>Vehicle Details</Text>
 
           <Link href={`/vehicles/edit/${id}`}>
-            <Button minW={'11rem'}>Edit Vehicle</Button>
+            <Button minW={'11rem'}>Edit Vehicle details</Button>
           </Link>
         </Flex>
         <Divider />
