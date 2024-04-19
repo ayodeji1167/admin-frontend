@@ -203,7 +203,7 @@ export default function Details({ id }: { id: string }) {
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle is owned by{' '}
                 <Link
-                  href={`/customers/${data?.data.user._id}`}
+                  href={`/customers/${data?.data?.user?._id}`}
                   style={{ color: '#2574C3', marginLeft: '10px' }}
                 >
                   {ownerName}.
