@@ -1,4 +1,6 @@
 'use client';
+import { useGetAllBusiness } from '@/app/api/business/get-all-business';
+import { useAddVehicle } from '@/app/api/vehicles/add-vehicle';
 import CustomSelect from '@/components/Input/CustomSelect';
 import StringInput from '@/components/Input/StringInput';
 import { cars } from '@/data/cars';
@@ -7,6 +9,7 @@ import {
   fuelTypeOptions,
   yearOptions,
 } from '@/data/vehicle-options';
+import { useToast } from '@/hooks/useToast';
 import { IUser } from '@/interface/user';
 import { IVehicle } from '@/interface/vehicle';
 import { getCarModelOptions, getCarOptions } from '@/utils/select-format';
@@ -20,6 +23,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useEffect, useState } from 'react';
 
 export default function Bottom({
@@ -27,9 +31,17 @@ export default function Bottom({
 }: {
   initialValues?: Partial<IVehicle>;
 }) {
+  const toast = useToast();
   const make = getCarOptions(cars) || [];
   const [selectedMake, setSelectedMake] = useState('');
   const [selectedModels, setSelectedModels] = useState<any>([]);
+  const { mutateAsync, isPending } = useAddVehicle();
+  const { data } = useGetAllBusiness();
+  const router = useRouter();
+  const businessOptions = data?.data?.businesses.map((item: any) => ({
+    label: item?.slug,
+    value: item?._id,
+  }));
 
   useEffect(() => {
     if (selectedMake) {
@@ -43,6 +55,7 @@ export default function Bottom({
     email: initialValues?.user?.email ?? '',
     phoneNumber: initialValues?.user?.phoneNumber ?? '',
     address: initialValues?.user?.address ?? '',
+    business: initialValues?.business ?? '',
     vin: initialValues?.vin ?? '',
     name: initialValues?.name ?? '',
     make: initialValues?.make ?? '',
@@ -53,7 +66,7 @@ export default function Bottom({
     registrationNumber: initialValues?.registrationNumber ?? '',
     ownershipType: initialValues?.ownershipType ?? '',
     year: initialValues?.year ?? '',
-    mileage: initialValues?.mileage ?? 0,
+    // mileage: initialValues?.mileage ?? '',
     fuelType: initialValues?.fuelType ?? '',
     lastServiceDate: initialValues?.lastServiceDate ?? '',
     lastRepairDate: initialValues?.lastRepairDate ?? '',
@@ -71,8 +84,38 @@ export default function Bottom({
     initialValues: vehicleInitialValues,
     // validationSchema: userFormSchema,
     onSubmit: async (values) => {
-      // await handleApiSubmit(values);
-      return values;
+      const {
+        firstName,
+        lastName,
+        phoneNumber,
+        address,
+        email,
+        ...vehicleDetails
+      } = values;
+      if (!values.ownershipType) {
+        toast({ description: 'Please select ownership type', status: 'error' });
+        return;
+      }
+      if (values.ownershipType === 'individual') {
+        const res = await mutateAsync({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          address,
+          ...vehicleDetails,
+        });
+        // console.log('Response s', res.data);
+        router.push(`/vehicles/${res.data._id}`);
+        return;
+      }
+      if (values.ownershipType === 'business') {
+        const res = await mutateAsync(vehicleDetails);
+        // console.log('Response s', res.data);
+        router.push(`/vehicles/${res.data._id}`);
+
+        return;
+      }
     },
   });
 
@@ -148,6 +191,16 @@ export default function Bottom({
               />
             </GridItem>
             <GridItem>
+              <CustomSelect
+                placeholder="Type to search..."
+                options={selectedModels}
+                onChange={(val) => {
+                  setFieldValue('model', val.value);
+                }}
+                label="Model"
+              />
+            </GridItem>
+            <GridItem>
               <StringInput
                 formControlProps={{
                   label: 'Name',
@@ -165,26 +218,14 @@ export default function Bottom({
                 }}
               />
             </GridItem>
-            <GridItem>
-              <CustomSelect
-                placeholder="Type to search..."
-                options={selectedModels}
-                onChange={(val) => {
-                  setFieldValue('model', val.value);
-                }}
-                label="Model"
-              />
-            </GridItem>
+
             {values.ownershipType === 'business' && (
               <GridItem>
                 <CustomSelect
                   placeholder="Select business"
-                  options={[
-                    { label: 'GTB', value: 'GTB' },
-                    { label: 'Coca cola', value: 'coca cola' },
-                  ]}
+                  options={businessOptions}
                   onChange={(val) => {
-                    setFieldValue('businessId', val.value);
+                    setFieldValue('business', val.value);
                   }}
                   label="Business"
                 />
@@ -346,7 +387,7 @@ export default function Bottom({
             </Box>
           )}
           <Center mt={'3rem'} mb={'3rem'}>
-            <Button isLoading={false} type="submit" minW={'9rem'}>
+            <Button isLoading={isPending} type="submit" minW={'10rem'}>
               Proceed
             </Button>
           </Center>

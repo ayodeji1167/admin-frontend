@@ -14,7 +14,7 @@ export interface IVehicle {
 
   vin: string;
 
-  businessId: string;
+  business: string;
 
   user: IUser;
 
@@ -22,7 +22,7 @@ export interface IVehicle {
 
   type: VehicleTypeEnum | string;
 
-  mileage: number;
+  mileage: string;
 
   fuelType: FuelTypeEnum | string;
 
