@@ -14,7 +14,7 @@ export interface IVehicle {
 
   vin: string;
 
-  business: string;
+  business: { _id: string; slug: string; name: string } | any;
 
   user: IUser;
 

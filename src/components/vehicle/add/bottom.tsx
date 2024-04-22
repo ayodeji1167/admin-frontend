@@ -55,7 +55,7 @@ export default function Bottom({
     email: initialValues?.user?.email ?? '',
     phoneNumber: initialValues?.user?.phoneNumber ?? '',
     address: initialValues?.user?.address ?? '',
-    business: initialValues?.business ?? '',
+    business: initialValues?.business?._id ?? '',
     vin: initialValues?.vin ?? '',
     name: initialValues?.name ?? '',
     make: initialValues?.make ?? '',

@@ -3,7 +3,7 @@ import CustomBreadcrumb from '@/components/common/CustomBreadcrumb';
 import CustomModal from '@/components/common/CustomModal';
 import { Flex, Box, Button, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
-import LogServiceModal from './log-service-modal';
+import LogServiceModal from '../../services/add/log-service-modal';
 
 export default function Head({ id }: { id: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,7 +29,7 @@ export default function Head({ id }: { id: string }) {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <LogServiceModal id={id} />
+        <LogServiceModal onClose={onClose} id={id} />
       </CustomModal>
     </Flex>
   );

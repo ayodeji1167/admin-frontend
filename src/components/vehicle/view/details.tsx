@@ -62,8 +62,18 @@ export default function Details({ id }: { id: string }) {
   const images = getLastFourItems<any>(
     data?.data?.images?.map((item) => item.url)
   );
-  const ownerName = `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
-  const hasOwner = Boolean(data?.data?.user);
+  const ownerName =
+    data?.data?.ownershipType === 'individual'
+      ? `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`
+      : `${data?.data?.business?.slug}`;
+  const ownerLink =
+    data?.data?.ownershipType === 'individual'
+      ? `/customers/${data?.data?.user?._id}`
+      : `/business/${data?.data?.business?._id}`;
+
+  // `${data?.data?.business?.slug}` ??
+  // `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
+  const hasOwner = Boolean(data?.data?.user) || Boolean(data?.data?.business);
   const hasImages = data?.data?.images && data?.data?.images?.length > 0;
   const addUser = async (values: any) => {
     await mutateAsync({ data: values, vehicleId: id as string });
@@ -203,15 +213,17 @@ export default function Details({ id }: { id: string }) {
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle is owned by{' '}
                 <Link
-                  href={`/customers/${data?.data?.user?._id}`}
+                  href={ownerLink}
                   style={{ color: '#2574C3', marginLeft: '10px' }}
                 >
                   {ownerName}.
                 </Link>{' '}
               </Text>
-              <Button onClick={editUserDisclosure.onOpen} minW={'13rem'}>
-                Edit Owners information
-              </Button>
+              {data?.data?.ownershipType === 'individual' && (
+                <Button onClick={editUserDisclosure.onOpen} minW={'13rem'}>
+                  Edit Owners information
+                </Button>
+              )}
             </Center>
           ) : (
             <Center mt={'2rem'} gap={'2.3rem'}>

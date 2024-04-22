@@ -2,7 +2,7 @@ import React from 'react';
 import Center from '@/components/ui/chakra/Center';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import Custompopover from '@/components/Input/Custompopover';
-import { CiViewList, CiEdit } from 'react-icons/ci';
+import { CiViewList } from 'react-icons/ci';
 import { BsTrash3 } from 'react-icons/bs';
 
 export default function RowActions(props: any) {
@@ -10,21 +10,21 @@ export default function RowActions(props: any) {
     {
       isLink: true,
       icon: CiViewList,
-      name: 'View Vehicle Info',
+      name: 'View Service Info',
       color: '#56585A',
-      path: `/vehicles/${props.row.original.userId}`,
+      path: `/services/${props.row.original._id}`,
     },
-    {
-      isLink: true,
-      icon: CiEdit,
-      name: 'Edit Vehicle',
-      color: '#56585A',
-      path: `/vehicles/edit/${props.row.original.userId}`,
-    },
+    // {
+    //   isLink: true,
+    //   icon: CiEdit,
+    //   name: 'Edit Vehicle',
+    //   color: '#56585A',
+    //   path: `/vehicles/edit/${props.row.original.userId}`,
+    // },
     {
       isLink: false,
       icon: BsTrash3,
-      name: 'Delete Vehicle',
+      name: 'Delete Service',
       color: '#BB1111',
       clickFn: () => {
         //Do anything with props.row.original

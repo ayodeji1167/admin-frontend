@@ -10,7 +10,7 @@ import { servicesMetrics } from './data';
 import MetricCard from '@/components/common/MetricCard';
 import { useDisclosure } from '@chakra-ui/react';
 import CustomModal from '@/components/common/CustomModal';
-import LogServiceModal from '@/components/vehicle/view/log-service-modal';
+import LogServiceModal from '@/components/services/add/log-service-modal';
 
 export default function Top() {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -41,7 +41,7 @@ export default function Top() {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <LogServiceModal />
+        <LogServiceModal onClose={onClose} />
       </CustomModal>
     </Box>
   );
