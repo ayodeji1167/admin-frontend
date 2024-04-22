@@ -21,6 +21,7 @@ import CustomModal from '@/components/common/CustomModal';
 import Userform from '@/components/userform/userform';
 import { useAddUser } from '@/app/api/vehicles/add-user';
 import UploadImages from './upload-images';
+import { useUpdateVehicle } from '@/app/api/vehicles/update-vehicle';
 
 function VehicleItem({
   name,
@@ -48,8 +49,12 @@ export default function Details({ id }: { id: string }) {
   const { data, isLoading, refetch } = useGetVehiclebyId(id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const adImagesDisclosure = useDisclosure();
+  const editUserDisclosure = useDisclosure();
   const { mutateAsync, isPending } = useAddUser();
-  // console.log('vehicle is ', data);
+  const {
+    mutateAsync: editVehicleMutateAsync,
+    isPending: editVehicleIspending,
+  } = useUpdateVehicle();
 
   function getLastFourItems<T>(array: T[] | any): T[] {
     return array?.slice(Math.max(array?.length - 4, 0));
@@ -57,13 +62,33 @@ export default function Details({ id }: { id: string }) {
   const images = getLastFourItems<any>(
     data?.data?.images?.map((item) => item.url)
   );
-  const ownerName = `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
-  const hasOwner = Boolean(data?.data?.user);
+  const ownerName =
+    data?.data?.ownershipType === 'individual'
+      ? `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`
+      : `${data?.data?.business?.slug}`;
+  const ownerLink =
+    data?.data?.ownershipType === 'individual'
+      ? `/customers/${data?.data?.user?._id}`
+      : `/business/${data?.data?.business?._id}`;
+
+  // `${data?.data?.business?.slug}` ??
+  // `${data?.data?.user?.firstName} ${data?.data?.user?.lastName}`;
+  const hasOwner = Boolean(data?.data?.user) || Boolean(data?.data?.business);
   const hasImages = data?.data?.images && data?.data?.images?.length > 0;
   const addUser = async (values: any) => {
     await mutateAsync({ data: values, vehicleId: id as string });
     refetch();
     onClose();
+  };
+  const editUser = async (values: any) => {
+    await editVehicleMutateAsync({
+      data: {
+        user: { ...values, _id: data?.data?.user?._id },
+      },
+      vehicleId: id as string,
+    });
+    refetch();
+    editUserDisclosure.onClose();
   };
 
   // console.log('data is ', data);
@@ -188,13 +213,17 @@ export default function Details({ id }: { id: string }) {
               <Text fontWeight={700} fontSize={'1.2rem'}>
                 This vehicle is owned by{' '}
                 <Link
-                  href={`/customers/${data?.data.user._id}`}
+                  href={ownerLink}
                   style={{ color: '#2574C3', marginLeft: '10px' }}
                 >
                   {ownerName}.
                 </Link>{' '}
               </Text>
-              <Button minW={'13rem'}>Edit Owners information</Button>
+              {data?.data?.ownershipType === 'individual' && (
+                <Button onClick={editUserDisclosure.onOpen} minW={'13rem'}>
+                  Edit Owners information
+                </Button>
+              )}
             </Center>
           ) : (
             <Center mt={'2rem'} gap={'2.3rem'}>
@@ -210,6 +239,17 @@ export default function Details({ id }: { id: string }) {
 
         <CustomModal isOpen={isOpen} onClose={onClose}>
           <Userform isLoading={isPending} handleApiSubmit={addUser} />
+        </CustomModal>
+
+        <CustomModal
+          isOpen={editUserDisclosure.isOpen}
+          onClose={editUserDisclosure.onClose}
+        >
+          <Userform
+            isLoading={editVehicleIspending}
+            handleApiSubmit={editUser}
+            initialValues={data?.data.user}
+          />
         </CustomModal>
 
         <CustomModal

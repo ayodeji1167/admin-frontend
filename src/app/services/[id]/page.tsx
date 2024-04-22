@@ -1,10 +1,10 @@
-import EditVehicle from '@/components/vehicle/edit/edit-table';
+import ViewbyId from '@/components/services/view-by-id/view-by-id';
 import React from 'react';
 
 export default function page({ params }: { params: { id: string } }) {
   return (
     <div>
-      <EditVehicle id={params.id} />
+      <ViewbyId id={params.id} />
     </div>
   );
 }

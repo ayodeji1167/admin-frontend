@@ -4,12 +4,14 @@ export const yearOptions = Array.from({ length: 35 }).map((_, index) => ({
 }));
 
 export const carTypeOptions = [
-  { label: 'Truck', value: 'truck' },
-  { label: 'Car', value: 'car' },
-  { label: 'Bus', value: 'bus' },
+  { label: 'Truck', value: 'TRUCK' },
+  { label: 'Car', value: 'CAR' },
+  { label: 'Bus', value: 'BUS' },
+  { label: 'Lorry', value: 'LORRY' },
 ];
 export const fuelTypeOptions = [
-  { label: 'Petrol', value: 'petrol' },
-  { label: 'Diesel', value: 'diesel' },
-  { label: 'Hybrid', value: 'hybrid' },
+  { label: 'Petrol', value: 'PETROL' },
+  { label: 'Diesel', value: 'DIESEL' },
+  { label: 'Gas', value: 'GAS' },
+  { label: 'Electric', value: 'ELECTRIC' },
 ];

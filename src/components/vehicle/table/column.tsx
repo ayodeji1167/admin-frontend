@@ -18,17 +18,23 @@ export const columnDef = [
     id: 'vehicle-name',
   }),
   columnHelper.accessor('make', {
-    cell: (info) => <Box>{info.getValue()}</Box>,
+    cell: (info) => <Box>{info.getValue()?.toUpperCase()}</Box>,
     header: 'Make',
     id: 'make',
   }),
   columnHelper.accessor('model', {
-    cell: (info) => <Box>{info.getValue()}</Box>,
+    cell: (info) => <Box>{info.getValue()?.toUpperCase()}</Box>,
     header: 'Model',
     id: 'model',
   }),
   columnHelper.accessor(
-    (row) => `${row?.user?.firstName} ${row?.user?.lastName}`,
+    (row) => {
+      if (row.ownershipType === 'individual') {
+        return `${row?.user?.firstName} ${row?.user?.lastName}`;
+      } else {
+        return `${row?.business?.slug}`;
+      }
+    },
     {
       cell: (info) => (
         <Box textTransform={'uppercase'} fontWeight={'600'}>

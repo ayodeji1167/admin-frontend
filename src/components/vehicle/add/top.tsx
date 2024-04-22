@@ -16,8 +16,8 @@ export default function Top() {
       </Box>
 
       <Box>
-        <CircularProgress trackColor="white" value={30} size="5rem">
-          <CircularProgressLabel>30</CircularProgressLabel>
+        <CircularProgress trackColor="white" value={50} size="5rem">
+          <CircularProgressLabel>50</CircularProgressLabel>
         </CircularProgress>
       </Box>
     </Flex>

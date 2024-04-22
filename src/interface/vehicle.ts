@@ -1,5 +1,6 @@
 import { FuelTypeEnum, VehicleTypeEnum } from '@/enum/vehicle';
 import { IFiles } from './file';
+import { IUser } from './user';
 
 export interface IVehicle {
   name: string;
@@ -13,17 +14,17 @@ export interface IVehicle {
 
   vin: string;
 
-  businessId: string;
+  business: { _id: string; slug: string; name: string } | any;
 
-  user: { firstName: string; lastName: string; _id: string };
+  user: IUser;
 
   color: string;
 
-  type: VehicleTypeEnum;
+  type: VehicleTypeEnum | string;
 
-  mileage: number;
+  mileage: string;
 
-  fuelType: FuelTypeEnum;
+  fuelType: FuelTypeEnum | string;
 
   insuranceIds: Array<string>;
 
