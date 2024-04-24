@@ -9,7 +9,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  chakra,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -21,6 +20,7 @@ import moment from 'moment';
 import { useGetService } from '@/hooks/service/useGetServices';
 import UploadImages from '@/components/vehicle/view/upload-images';
 import PDFViewer from '@/components/common/pdf/PdfView';
+import { useGenerateInvoicePdf } from '@/app/api/service/generate-invoice-pdf';
 
 function ServiceItem({
   name,
@@ -55,9 +55,16 @@ export default function ViewById({ id }: { id: string }) {
     addImagesDisclosure,
     ownerName,
   } = useGetService({ id });
+  const { data: invoicePdfData, isLoading: invoicePdfLoading } =
+    useGenerateInvoicePdf('66269270c6aa83314d003bf6');
+  const pdfBuffer = invoicePdfData?.data?.data;
+  // const pdfBlob = new Blob([new Uint8Array(pdfBuffer).buffer], {
+  //   type: 'application/pdf',
+  // });
+  // const pdfUrlBuf = window.URL.createObjectURL(pdfBlob);
 
   // console.log('data is ', data);
-  const pdfUrl = `https://res.cloudinary.com/djn1shwej/image/upload/v1713779878/DOCUMENTS/INVOICES/gcjmh1xodm7wi0jfhlh1.pdf`;
+  // const pdfUrl = `https://res.cloudinary.com/djn1shwej/image/upload/v1713779878/DOCUMENTS/INVOICES/gcjmh1xodm7wi0jfhlh1.pdf`;
 
   if (isLoading) {
     return <LottieLoader />;
@@ -176,16 +183,13 @@ export default function ViewById({ id }: { id: string }) {
 
         <Stack spacing={'2rem'} px={'2rem'}>
           <Box>
-            <Text textStyle={'subHeading'}>Invoice</Text>
-            <PDFViewer pdfUrl={pdfUrl} />
-            <chakra.iframe
-              mt={'2rem'}
-              src={pdfUrl}
-              style={{ width: '100%', height: '50rem' }}
-              frameBorder="0"
-            ></chakra.iframe>
+            <PDFViewer
+              buffer={pdfBuffer}
+              isLoading={invoicePdfLoading}
+              header="Invoice"
+            />
           </Box>
-          <Box>
+          {/* <Box>
             <Text textStyle={'subHeading'}>Estimate</Text>
             <PDFViewer pdfUrl={pdfUrl} />
             <chakra.iframe
@@ -204,7 +208,7 @@ export default function ViewById({ id }: { id: string }) {
               style={{ width: '100%', height: '50rem' }}
               frameBorder="0"
             ></chakra.iframe>
-          </Box>
+          </Box> */}
         </Stack>
 
         <CustomModal
