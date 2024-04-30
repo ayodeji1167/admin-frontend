@@ -20,7 +20,11 @@ export default function ServiceLogs({ vehicleId }: { vehicleId?: string }) {
     pageIndex: 0,
     pageSize: 15,
   });
-  const { data, isLoading } = useGetAllServices(pagination);
+  const filterData: any = pagination;
+  if (vehicleId) {
+    filterData.vehicleId = vehicleId;
+  }
+  const { data, isLoading } = useGetAllServices(filterData);
 
   if (isLoading) {
     return <LottieLoader />;

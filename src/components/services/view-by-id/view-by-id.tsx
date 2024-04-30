@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  Center,
   Divider,
   Flex,
   GridItem,
@@ -14,7 +15,7 @@ import React from 'react';
 
 import Link from 'next/link';
 import LottieLoader from '@/components/Loader/LottieLoader';
-import CustomModal from '@/components/common/CustomModal';
+import CustomModal from '@/components/common/Modals/CustomModal';
 import moment from 'moment';
 
 import { useGetService } from '@/hooks/service/useGetServices';
@@ -50,21 +51,14 @@ export default function ViewById({ id }: { id: string }) {
     data,
     hasImages,
     hasOwner,
-    // ownerLink,
     images,
     addImagesDisclosure,
     ownerName,
   } = useGetService({ id });
+  const invoiceIsAvailable = Boolean(data?.data?.invoice);
   const { data: invoicePdfData, isLoading: invoicePdfLoading } =
-    useGenerateInvoicePdf('66269270c6aa83314d003bf6');
+    useGenerateInvoicePdf(id, { enabled: invoiceIsAvailable });
   const pdfBuffer = invoicePdfData?.data?.data;
-  // const pdfBlob = new Blob([new Uint8Array(pdfBuffer).buffer], {
-  //   type: 'application/pdf',
-  // });
-  // const pdfUrlBuf = window.URL.createObjectURL(pdfBlob);
-
-  // console.log('data is ', data);
-  // const pdfUrl = `https://res.cloudinary.com/djn1shwej/image/upload/v1713779878/DOCUMENTS/INVOICES/gcjmh1xodm7wi0jfhlh1.pdf`;
 
   if (isLoading) {
     return <LottieLoader />;
@@ -182,13 +176,28 @@ export default function ViewById({ id }: { id: string }) {
         </Box>
 
         <Stack spacing={'2rem'} px={'2rem'}>
-          <Box>
-            <PDFViewer
-              buffer={pdfBuffer}
-              isLoading={invoicePdfLoading}
-              header="Invoice"
-            />
-          </Box>
+          {invoiceIsAvailable ? (
+            <Box>
+              <Flex fontWeight={600} fontSize={'1rem'} color={'primary.700'}>
+                <Link href={`/invoices/edit/${data?.data?.invoice}`}>
+                  Edit invoice
+                </Link>
+              </Flex>
+              <PDFViewer
+                buffer={pdfBuffer}
+                isLoading={invoicePdfLoading}
+                header="Invoice"
+              />
+            </Box>
+          ) : (
+            <Center>
+              <Link href={`/invoices/add/${id}`}>
+                <Button fontSize={'1.2rem'} variant={'ghost'}>
+                  Generate Invoice
+                </Button>
+              </Link>
+            </Center>
+          )}
           {/* <Box>
             <Text textStyle={'subHeading'}>Estimate</Text>
             <PDFViewer pdfUrl={pdfUrl} />

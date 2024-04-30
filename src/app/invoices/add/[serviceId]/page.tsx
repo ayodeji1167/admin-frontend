@@ -1,10 +1,10 @@
 import AddInvoice from '@/components/invoices/add/add-invoice';
 import React from 'react';
 
-export default function page() {
+export default function page({ params }: { params: { serviceId: string } }) {
   return (
     <div>
-      <AddInvoice />
+      <AddInvoice serviceId={params.serviceId} />
     </div>
   );
 }

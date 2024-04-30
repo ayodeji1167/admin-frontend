@@ -16,7 +16,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useGetVehiclebyId } from '@/app/api/vehicles/get-vehicle-by-id';
 import LottieLoader from '@/components/Loader/LottieLoader';
-import CustomModal from '@/components/common/CustomModal';
+import CustomModal from '@/components/common/Modals/CustomModal';
 // import AddUserModal from './add-user-modal';
 import Userform from '@/components/userform/userform';
 import { useAddUser } from '@/app/api/vehicles/add-user';

@@ -1,6 +1,6 @@
 'use client';
 import CustomBreadcrumb from '@/components/common/CustomBreadcrumb';
-import CustomModal from '@/components/common/CustomModal';
+import CustomModal from '@/components/common/Modals/CustomModal';
 import { Flex, Box, Button, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import LogServiceModal from '../../services/add/log-service-modal';

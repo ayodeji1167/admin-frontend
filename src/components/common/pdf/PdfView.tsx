@@ -67,7 +67,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
     <div style={{ width: '100%', height: '100vh' }}>
       <Flex alignItems={'center'} gap={'1rem'}>
         <Text textStyle={'subHeading'}>{header}</Text>
-        <Button onClick={handleDownload} ref={downloadRef} variant={'ghost'}>
+        <Button onClick={handleDownload} ref={downloadRef} variant={'outline'}>
           Download pdf
         </Button>
       </Flex>

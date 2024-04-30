@@ -25,10 +25,12 @@ import NumericInput from '@/components/Input/NumericInput';
 import CustomSelect from '@/components/Input/CustomSelect';
 import { serviceOptions } from '@/data/options/invoices';
 import StringInput from '@/components/Input/StringInput';
-import { useAddInvoice } from '@/hooks/invoice/useAddInvoice';
+
+import { useEditInvoice } from '@/hooks/invoice/useEditinvoice';
+import LottieLoader from '@/components/Loader/LottieLoader';
 // import { ConsentModal } from '@/components/common/Modals/ConsentModal';
 
-export default function AddInvoice({ serviceId }: { serviceId: string }) {
+export default function EditInvoice({ id }: { id: string }) {
   const {
     onSave,
     deleteItem,
@@ -43,80 +45,17 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
     setService,
     setSelectedOption,
     setFormattedAmount,
-  } = useAddInvoice({ serviceId });
+    fetchInvoiceLoading,
+  } = useEditInvoice({ id });
+
+  if (fetchInvoiceLoading) {
+    return <LottieLoader />;
+  }
+
   return (
     <div>
       <SizeWrapper>
-        {/* <Flex
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            pt={'2rem'}
-          >
-            <Box>
-              <Text mb={'.5rem'} textStyle={'subHeading'}>
-                Create New Invoice
-              </Text>
-              <CustomBreadcrumb />
-            </Box>
-
-            <Flex gap={'1.2rem'}>
-              <Button
-                border="1px solid #898A8C"
-                bg={'white'}
-                variant={'ghost'}
-                minW={'9rem'}
-              >
-                Back
-              </Button>
-              <Button onClick={onSave} minW={'9rem'}>
-                Save and Submit
-              </Button>
-            </Flex>
-          </Flex> */}
         <Box bg={'white'} pb={'3rem'}>
-          {/* <Box pb={'3rem'} mt={'2rem'} pt={'1.6rem'} rounded={'.6rem'}>
-              <CustomerSwicth
-                setIsExistingCustomer={setIsExistingCustomer}
-                isExistingCustomer={isExistingCustomer}
-              />
-              <Text
-                px={'2.5rem'}
-                pb={'.8rem'}
-                variant={'subHeading'}
-                fontWeight={500}
-                mt={'2rem'}
-              >
-                Customer Information
-              </Text>
-              <Divider />
-
-              {isExistingCustomer ? <SearchCustomer /> : <UserForm />}
-            </Box>
-            <Box
-              pb={'3rem'}
-              mt={'2rem'}
-              pt={'1.6rem'}
-              bg={'white'}
-              rounded={'.6rem'}
-            >
-              <VehicleSwitch
-                setIsExistingVehicle={setIsExistingVehicle}
-                isExistingVehicle={isExistingVehicle}
-              />
-              <Text
-                px={'2.5rem'}
-                pb={'.8rem'}
-                variant={'subHeading'}
-                fontWeight={500}
-                mt={'2rem'}
-              >
-                Vehicle Information
-              </Text>
-              <Divider />
-
-              {isExistingVehicle ? <SearchVehicle /> : <UserForm />}
-            </Box> */}
-
           <Box
             pb={'1rem'}
             mt={'2rem'}
@@ -208,7 +147,7 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
               </SimpleGrid>
 
               <Box minH={'10vh'} mt={'2rem'}>
-                {invoiceItems.map((item) => (
+                {invoiceItems?.map((item) => (
                   <Stack key={item.service}>
                     <Flex
                       alignItems={'center'}
@@ -250,10 +189,10 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
               </Box>
             </Box>
           </Box>
-          {invoiceItems.length > 0 && (
+          {invoiceItems?.length > 0 && (
             <Center>
               <Button isLoading={isPending} minW={'9rem'} onClick={onSave}>
-                Create Invoice
+                Edit Invoice
               </Button>
             </Center>
           )}

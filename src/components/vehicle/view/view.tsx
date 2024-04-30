@@ -10,7 +10,7 @@ export default function Vehicleview({ id }: { id: string }) {
       <SizeWrapper>
         <Head id={id} />
         <Details id={id} />
-        <ServiceLogs />
+        <ServiceLogs vehicleId={id} />
       </SizeWrapper>
     </div>
   );

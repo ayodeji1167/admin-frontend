@@ -16,7 +16,11 @@ export const useAddService = ({
   onClose: any;
 }) => {
   const { mutateAsync, isPending } = useAddServiceApi();
-  const { refetch } = useGetAllServices(id);
+  const { refetch } = useGetAllServices({
+    pageIndex: 0,
+    pageSize: 1,
+    vehicleId: id,
+  });
   //   const toast = useToast();
 
   const serviceInitialValues: Partial<IService> = {

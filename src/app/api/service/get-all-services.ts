@@ -5,10 +5,11 @@ import {
   useQuery,
 } from '@/lib/react-query';
 
-export const getAllServices = async (pagination: any) => {
+export const getAllServices = async (filter: any) => {
   const axios = AuthAxios();
   const response = await axios.get(
-    `/service?pageNumber=${pagination.pageIndex + 1}&pageSize=${pagination.pageSize}`
+    `/service?pageNumber=${filter.pageIndex + 1}&pageSize=${filter.pageSize}` +
+      `${filter?.vehicleId ? `&vehicleId=${filter?.vehicleId}` : ''}`
   );
   return response.data;
 };
