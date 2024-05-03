@@ -150,7 +150,7 @@ export default function Bottom({
                 placeholder="Select business"
                 options={[
                   { label: 'Individual', value: 'individual' },
-                  { label: 'Partner', value: 'business' },
+                  { label: 'Corporate', value: 'business' },
                 ]}
                 onChange={(val) => {
                   setFieldValue('ownershipType', val.value);
@@ -200,7 +200,7 @@ export default function Bottom({
                 label="Model"
               />
             </GridItem>
-            <GridItem>
+            {/* <GridItem>
               <StringInput
                 formControlProps={{
                   label: 'Name',
@@ -217,7 +217,7 @@ export default function Bottom({
                   placeholder: 'Enter the Vehicle name',
                 }}
               />
-            </GridItem>
+            </GridItem> */}
 
             {values.ownershipType === 'business' && (
               <GridItem>
@@ -274,6 +274,26 @@ export default function Bottom({
                   onChange: handleChange,
                   value: values.color,
                   isInvalid: Boolean(errors.color && touched.color),
+                  onBlur: handleBlur,
+                }}
+              />
+            </GridItem>
+            <GridItem>
+              <StringInput
+                formControlProps={{
+                  label: 'Registration number',
+                  isRequired: true,
+                }}
+                errorMessage={errors.color}
+                inputProps={{
+                  placeholder: 'Enter the Vehicle Plate number',
+                  name: 'registrationNumber',
+                  type: 'text',
+                  onChange: handleChange,
+                  value: values.registrationNumber,
+                  isInvalid: Boolean(
+                    errors.registrationNumber && touched.registrationNumber
+                  ),
                   onBlur: handleBlur,
                 }}
               />

@@ -6,10 +6,11 @@ import {
   Divider,
   Flex,
   GridItem,
-  Image,
+  // Image,
   SimpleGrid,
   Stack,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -22,6 +23,7 @@ import { useGetService } from '@/hooks/service/useGetServices';
 import UploadImages from '@/components/vehicle/view/upload-images';
 import PDFViewer from '@/components/common/pdf/PdfView';
 import { useGenerateInvoicePdf } from '@/app/api/service/generate-invoice-pdf';
+import JobOrderImageModal from './job-order-modal';
 
 function ServiceItem({
   name,
@@ -49,9 +51,9 @@ export default function ViewById({ id }: { id: string }) {
   const {
     isLoading,
     data,
-    hasImages,
+    // hasImages,
     hasOwner,
-    images,
+    // images,
     addImagesDisclosure,
     ownerName,
   } = useGetService({ id });
@@ -59,6 +61,8 @@ export default function ViewById({ id }: { id: string }) {
   const { data: invoicePdfData, isLoading: invoicePdfLoading } =
     useGenerateInvoicePdf(id, { enabled: invoiceIsAvailable });
   const pdfBuffer = invoicePdfData?.data?.data;
+  const jobOrder = data?.data?.jobOrder;
+  const jobOrderDisclosure = useDisclosure();
 
   if (isLoading) {
     return <LottieLoader />;
@@ -85,7 +89,7 @@ export default function ViewById({ id }: { id: string }) {
         </Flex>
         <Divider />
         <Box px={'1.8rem'} pt={'1.8rem'}>
-          {hasImages && (
+          {/* {hasImages && (
             <Button
               mb={'1rem'}
               onClick={addImagesDisclosure.onOpen}
@@ -132,8 +136,38 @@ export default function ViewById({ id }: { id: string }) {
                 Add images
               </Button>
             </Flex>
-          )}
+          )} */}
+          <Flex justifyContent={'space-between'}>
+            {!jobOrder ? (
+              <Flex
+                mb={'2rem'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                gap={'1rem'}
+              >
+                <Text fontWeight={'500'} fontSize={'2rem'}>
+                  ADD JOB ORDER
+                </Text>
+                <Button
+                  onClick={jobOrderDisclosure.onOpen}
+                  fontSize={'1.2rem'}
+                  variant={'ghost'}
+                >
+                  Add job order
+                </Button>
+              </Flex>
+            ) : (
+              <Link href={jobOrder?.url} target="_blank">
+                <Button fontSize={'1.2rem'} variant={'ghost'}>
+                  View job order
+                </Button>
+              </Link>
+            )}
 
+            {jobOrder && invoiceIsAvailable && (
+              <Button variant={'outline'}>Send Job Completion Mail</Button>
+            )}
+          </Flex>
           <SimpleGrid
             rowGap={'.9rem'}
             columnGap={'1.2rem'}
@@ -165,7 +199,16 @@ export default function ViewById({ id }: { id: string }) {
               />
             </GridItem>
             <GridItem bg={'#EBEBEB'}>
-              <ServiceItem name="Vehicle Make" value={data?.data.make} />
+              <ServiceItem
+                name="Vehicle Make"
+                value={data?.data?.vehicle?.make}
+              />
+            </GridItem>
+            <GridItem bg={'#F8FBFF'}>
+              <ServiceItem
+                name="Vehicle Model"
+                value={data?.data?.vehicle?.model}
+              />
             </GridItem>
             {hasOwner && (
               <GridItem h={'2.3rem'} bg={'#F8FBFF'}>
@@ -198,26 +241,6 @@ export default function ViewById({ id }: { id: string }) {
               </Link>
             </Center>
           )}
-          {/* <Box>
-            <Text textStyle={'subHeading'}>Estimate</Text>
-            <PDFViewer pdfUrl={pdfUrl} />
-            <chakra.iframe
-              mt={'2rem'}
-              src={pdfUrl}
-              style={{ width: '100%', height: '50rem' }}
-              frameBorder="0"
-            ></chakra.iframe>
-          </Box>
-          <Box>
-            <Text textStyle={'subHeading'}>Inspection Report</Text>
-            <PDFViewer pdfUrl={pdfUrl} />
-            <chakra.iframe
-              mt={'2rem'}
-              src={pdfUrl}
-              style={{ width: '100%', height: '50rem' }}
-              frameBorder="0"
-            ></chakra.iframe>
-          </Box> */}
         </Stack>
 
         <CustomModal
@@ -226,6 +249,13 @@ export default function ViewById({ id }: { id: string }) {
           onClose={addImagesDisclosure.onClose}
         >
           <UploadImages onClose={addImagesDisclosure.onClose} id={id} />
+        </CustomModal>
+        <CustomModal
+          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          isOpen={jobOrderDisclosure.isOpen}
+          onClose={jobOrderDisclosure.onClose}
+        >
+          <JobOrderImageModal onClose={jobOrderDisclosure.onClose} id={id} />
         </CustomModal>
       </Box>
     );

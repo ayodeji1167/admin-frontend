@@ -12,10 +12,10 @@ export const columnDef = [
     cell: () => <Checkbox />,
     header: () => <Checkbox borderColor={'white'} />,
   }),
-  columnHelper.accessor('name', {
+  columnHelper.accessor('registrationNumber', {
     cell: (info) => <Box>{info.getValue()}</Box>,
-    header: 'Vehicle name',
-    id: 'vehicle-name',
+    header: 'Reg No',
+    id: 'registration-number',
   }),
   columnHelper.accessor('make', {
     cell: (info) => <Box>{info.getValue()?.toUpperCase()}</Box>,
