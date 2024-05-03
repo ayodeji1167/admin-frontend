@@ -24,6 +24,7 @@ import UploadImages from '@/components/vehicle/view/upload-images';
 import PDFViewer from '@/components/common/pdf/PdfView';
 import { useGenerateInvoicePdf } from '@/app/api/service/generate-invoice-pdf';
 import JobOrderImageModal from './job-order-modal';
+import { useSendJobCompletionApi } from '@/app/api/service/send-job-completion';
 
 function ServiceItem({
   name,
@@ -56,6 +57,7 @@ export default function ViewById({ id }: { id: string }) {
     // images,
     addImagesDisclosure,
     ownerName,
+    refetch,
   } = useGetService({ id });
   const invoiceIsAvailable = Boolean(data?.data?.invoice);
   const { data: invoicePdfData, isLoading: invoicePdfLoading } =
@@ -63,7 +65,12 @@ export default function ViewById({ id }: { id: string }) {
   const pdfBuffer = invoicePdfData?.data?.data;
   const jobOrder = data?.data?.jobOrder;
   const jobOrderDisclosure = useDisclosure();
+  const { mutateAsync, isPending } = useSendJobCompletionApi();
 
+  const sendJobCompletion = async () => {
+    await mutateAsync(id);
+    refetch();
+  };
   if (isLoading) {
     return <LottieLoader />;
   } else {
@@ -165,7 +172,13 @@ export default function ViewById({ id }: { id: string }) {
             )}
 
             {jobOrder && invoiceIsAvailable && (
-              <Button variant={'outline'}>Send Job Completion Mail</Button>
+              <Button
+                onClick={sendJobCompletion}
+                isLoading={isPending}
+                variant={'outline'}
+              >
+                Send Job Completion Mail
+              </Button>
             )}
           </Flex>
           <SimpleGrid
