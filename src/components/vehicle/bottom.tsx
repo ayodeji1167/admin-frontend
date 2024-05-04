@@ -33,6 +33,7 @@ export default function Bottom() {
 
   useEffect(() => {
     if (!search.trim()) {
+      setSearchFilter('');
       return;
     }
 
