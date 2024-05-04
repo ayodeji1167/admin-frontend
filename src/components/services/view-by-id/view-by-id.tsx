@@ -90,7 +90,7 @@ export default function ViewById({ id }: { id: string }) {
         >
           <Text textStyle={'subHeading'}>Service Details</Text>
 
-          <Link href={`/service/edit/${id}`}>
+          <Link href={`/services/edit/${id}`}>
             <Button minW={'11rem'}>Edit Service</Button>
           </Link>
         </Flex>

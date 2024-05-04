@@ -27,7 +27,7 @@ export const useGetAllServices = (
       else if (failureCount < 1) return true;
       else return false;
     },
-    queryKey: ['get-all-services', pagination.pageIndex],
+    queryKey: ['get-all-services', pagination.pageIndex, pagination?.vehicleId],
     queryFn: () => getAllServices(pagination),
 
     ...config,

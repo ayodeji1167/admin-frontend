@@ -39,7 +39,7 @@ export default function ServiceLogs({ vehicleId }: { vehicleId?: string }) {
           columnDef={columnDef}
           data={data?.data?.services}
           filter={{
-            tableName: 'Recent Service History' + vehicleId,
+            tableName: 'Recent Service History',
           }}
           total={data?.data.total || 0}
           tableOptions={{

@@ -12,6 +12,7 @@ interface CustomSelectProps {
   isDisabled?: boolean;
   selectedOption?: any;
   setSelectedOption?: any;
+  defaultValue?: any;
 }
 
 export default function CustomSelect({
@@ -21,6 +22,7 @@ export default function CustomSelect({
   isDisabled,
   label,
   selectedOption,
+  defaultValue,
 }: CustomSelectProps) {
   // const [selectedValue, setSelectedValue] = useState(value);
 
@@ -28,6 +30,7 @@ export default function CustomSelect({
     // setSelectedValue(selectedOption);
     onChange(selectedOption); // Pass value to parent component
   };
+
   return (
     <div>
       <Text
@@ -41,6 +44,7 @@ export default function CustomSelect({
       <Select
         id="select-custom"
         value={selectedOption}
+        defaultValue={defaultValue}
         onChange={handleSelectChange}
         options={options}
         placeholder={placeholder || 'Select an option'}

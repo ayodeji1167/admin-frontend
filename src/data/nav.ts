@@ -1,5 +1,5 @@
 export const navs = [
   { path: '/', slug: 'home', name: 'Home' },
-  { path: '/services', slug: 'service', name: 'Service logs' },
+  { path: '/vehicles', slug: 'vehicles', name: 'Vehicles' },
   { path: '/messages', slug: 'messages', name: 'Messages' },
 ];
