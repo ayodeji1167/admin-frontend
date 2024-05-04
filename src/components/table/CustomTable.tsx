@@ -20,7 +20,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import React from 'react';
-import Filter from './Filter';
+// import Filter from './Filter';
 import Pagination from './Pagination';
 import { FaSortDown, FaSortUp } from 'react-icons/fa';
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md';
@@ -58,7 +58,7 @@ interface CustomTableProps {
   setPagination: any;
   columnDef: any;
   data: Array<any> | undefined;
-  filter: {
+  filter?: {
     tableName: string;
     inputProps?: InputProps;
   };
@@ -72,7 +72,7 @@ export default function CustomTable({
   setPagination,
   columnDef,
   data = [],
-  filter,
+  // filter,
   total = 0,
   tableOptions,
 }: CustomTableProps) {
@@ -90,7 +90,7 @@ export default function CustomTable({
 
   return (
     <Box>
-      <Filter name={filter.tableName} inputProps={filter.inputProps} />
+      {/* <Filter name={filter.tableName} inputProps={filter.inputProps} /> */}
 
       <Table variant="unstyled">
         <Thead>

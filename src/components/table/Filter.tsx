@@ -19,7 +19,7 @@ export default function Filter({ name, inputProps }: FilterProps) {
         {name}
       </Text>
       <Flex>
-        <Input {...inputProps} placeholder="Search" w={'20rem'} />
+        <Input placeholder="Search" w={'20rem'} {...inputProps} />
       </Flex>
     </Flex>
   );
