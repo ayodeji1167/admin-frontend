@@ -2,7 +2,6 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useToast } from '../useToast';
-import { useRouter } from 'next/navigation';
 import { useGetServiceByIdApi } from '@/app/api/service/get-by-id';
 import { useGetInvoicebyidApi } from '@/app/api/invoice/get-by-id';
 import { useEditInvoiceApi } from '@/app/api/invoice/edit-invoice';
@@ -32,7 +31,7 @@ export const useEditInvoice = ({ id }: any) => {
   const [formattedAmount, setFormattedAmount] = useState('');
   const [selectedOption, setSelectedOption] = useState<any>();
   const { mutateAsync, isPending } = useEditInvoiceApi();
-  const router = useRouter();
+  // const router = useRouter();
 
   const addItem = () => {
     if (!service || !amount) {
@@ -73,7 +72,8 @@ export const useEditInvoice = ({ id }: any) => {
 
     await mutateAsync(payload);
     refetch();
-    router.push(`/services/${serviceId}`);
+    // router.push(`/services/${serviceId}`);
+    window.location.href = `/services/${serviceId}`;
   };
 
   useEffect(() => {

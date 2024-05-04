@@ -5,9 +5,14 @@ import { MutationConfig } from '@/lib/react-query';
 import { getErrorMessage } from '@/utils/get-error-message';
 import { useMutation } from '@tanstack/react-query';
 
-export const sendJobCompletionMail = async (id: string) => {
+export const sendJobCompletionMail = async (data: {
+  id: string;
+  to: 'ganiu' | 'stephen' | 'partner';
+}) => {
   const axios = AuthAxios();
-  const response = await axios.post(`service/send/job-completion/${id}`);
+  const response = await axios.post(`service/send/job-completion/${data.id}`, {
+    to: data.to,
+  });
   return response.data;
 };
 

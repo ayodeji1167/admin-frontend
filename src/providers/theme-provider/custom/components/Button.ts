@@ -22,14 +22,12 @@ export const Button: ComponentDefaultProps = {
         boxShadow:
           '28px 40px 20px rgba(24, 19, 162, 0.03), 16px 23px 17px rgba(24, 19, 162, 0.1), 7px 10px 12px rgba(24, 19, 162, 0.17), 2px 3px 7px rgba(24, 19, 162, 0.2), 0px 0px 0px rgba(24, 19, 162, 0.2)',
         bgColor: 'brand.primary.500',
-        borderRadius: '10px',
       },
       _hover: {
         border: '8px solid',
         borderColor: 'primary.100',
         boxShadow: ' 0px 0px 27px rgba(24, 19, 162, 0.2)',
         bgColor: 'brand.primary.500',
-        borderRadius: '10px',
       },
     },
     outline: {
@@ -40,7 +38,6 @@ export const Button: ComponentDefaultProps = {
       minWidth: { md: '130px' },
       _focus: {
         bgColor: 'white',
-        borderRadius: '10px',
       },
       _hover: {
         borderColor: 'primary.500',
