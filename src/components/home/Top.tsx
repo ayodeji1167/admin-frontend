@@ -13,7 +13,7 @@ export default function Top() {
   return (
     <Box mt={'1.5rem'}>
       <Flex
-        mb={'1.4rem'}
+        mb={{ base: '1rem', md: '1.4rem' }}
         justifyContent={'space-between'}
         alignItems={'center'}
       >
@@ -21,10 +21,10 @@ export default function Top() {
         <Button minW={'10rem'}>Log Services</Button>
       </Flex>
       <SimpleGrid
-        h={'10rem'}
+        h={{ base: 'auto', md: '10rem' }}
         gap={'1.4rem'}
         row={1}
-        columns={{ base: 2, md: 3 }}
+        columns={{ base: 1, md: 3 }}
       >
         {dashboardMetrics.map((item, index) => (
           <GridItem key={index}>

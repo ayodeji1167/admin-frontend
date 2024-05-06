@@ -8,7 +8,7 @@ export const Button: ComponentDefaultProps = {
     variant: 'solid',
     borderRadius: '20px',
     fontFamily: 'body',
-    minHeight: { base: '100px', md: '200px' },
+    // minHeight: { base: '100px', md: '200px' },
     fontSize: { base: '14px', md: '16px' },
     fontWeight: '600',
   },
@@ -69,13 +69,13 @@ export const Button: ComponentDefaultProps = {
   },
   sizes: {
     base: {
-      minHeight: '40px',
+      h: '10px',
       borderRadius: '4px',
       fontSize: 'sm',
     },
     md: {
-      minHeight: '36px',
-      fontSize: 'md',
+      h: { base: '30px', md: '36px' },
+      fontSize: { base: 'sm', md: 'md' },
     },
     lg: {
       minHeight: '42px',
