@@ -10,10 +10,10 @@ import Link from 'next/link';
 export default function Bottom() {
   return (
     <Box mt={'2.5rem'}>
-      <Text mb={'2.3rem'} textStyle={'subHeading'}>
+      <Text mb={{ base: '1.8rem', md: '2.3rem' }} textStyle={'subHeading'}>
         Quick Access Links
       </Text>
-      <SimpleGrid rowGap={'2.5rem'} gap={'1.4rem'} columns={{ base: 2, md: 3 }}>
+      <SimpleGrid rowGap={'2.5rem'} gap={'1.4rem'} columns={{ base: 1, md: 3 }}>
         {quicklink.map((item, index) => (
           <GridItem key={index}>
             <Link href={item.path}>
