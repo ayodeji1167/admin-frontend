@@ -3,6 +3,7 @@ import { Flex, chakra, Text, Button } from '@chakra-ui/react';
 import LottieLoader from '@/components/Loader/LottieLoader';
 interface PDFViewerProps {
   pdfUrl?: string;
+  fileName?: string;
   header: string;
   buffer: any;
   isLoading: boolean;
@@ -13,6 +14,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
   header,
   buffer,
   isLoading,
+  fileName,
 }) => {
   const [loading, setLoading] = useState(true);
   const downloadRef = useRef<any>(null);
@@ -32,7 +34,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
     downloadLink.href = pdfUrl;
 
     // Step 4: Set the download attribute to the desired filename
-    downloadLink.download = 'your_desired_filename.pdf';
+    downloadLink.download = fileName || `INVOICE`;
 
     // Step 5: Append the link to the document body
     document.body.appendChild(downloadLink);
@@ -75,7 +77,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
         src={pdfUrlBuf}
         my={'1rem'}
         w={'100%'}
-        h={'70rem'}
+        h={{ base: '50rem', md: '70rem' }}
       ></chakra.iframe>
     </div>
   );

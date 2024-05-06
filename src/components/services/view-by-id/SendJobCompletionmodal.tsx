@@ -31,14 +31,24 @@ export default function SendJobCompletionmodal({
     await mutateAsync({ id, to });
   };
   return (
-    <Card shadow={'none'}>
+    <Card
+      style={{ '--card-padding': { base: 0, md: '1rem' } } as any}
+      shadow={'none'}
+    >
       <CardHeader>
-        <Heading size="md">Send Job Completion Report</Heading>
+        <Heading size={{ basE: 'sm', md: 'md' }}>
+          Send Job Completion Report
+        </Heading>
       </CardHeader>
 
-      <CardBody>
+      <CardBody py={{ base: '1rem', md: 'auto' }}>
         <Stack divider={<StackDivider />} spacing="4">
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex
+            justifyContent={'space-between'}
+            alignItems={{ base: 'flex-start', md: 'center' }}
+            flexDir={{ base: 'column', md: 'row' }}
+            gap={{ base: '.8rem', md: '0' }}
+          >
             <Box>
               <Heading size="xs" textTransform="uppercase">
                 Mr Stephen
@@ -56,7 +66,12 @@ export default function SendJobCompletionmodal({
               Send
             </Button>
           </Flex>
-          <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Flex
+            alignItems={{ base: 'flex-start', md: 'center' }}
+            flexDir={{ base: 'column', md: 'row' }}
+            gap={{ base: '.8rem', md: '0' }}
+            justifyContent={'space-between'}
+          >
             <Box>
               <Heading size="xs" textTransform="uppercase">
                 Ganiu
@@ -77,9 +92,12 @@ export default function SendJobCompletionmodal({
           <Flex
             bg={'red.100'}
             p={'.6rem'}
-            alignItems={'center'}
+            alignItems={{ base: 'flex-start', md: 'center' }}
+            flexDir={{ base: 'column', md: 'row' }}
+            gap={{ base: '.8rem', md: '0' }}
             justifyContent={'space-between'}
             rounded={'.4rem'}
+            flexWrap={'wrap'}
           >
             <Box flex={1}>
               <Heading size="xs" textTransform="uppercase">
@@ -101,6 +119,7 @@ export default function SendJobCompletionmodal({
               isLoading={isPending && to === 'partner'}
               onClick={() => sendJobCompletion('partner')}
               disabled={isPending}
+              minW={{ base: '5rem', md: 'auto' }}
             >
               Send
             </Button>

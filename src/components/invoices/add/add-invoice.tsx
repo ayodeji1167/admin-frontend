@@ -13,6 +13,7 @@ import {
   SimpleGrid,
   Stack,
   Center,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 // import CustomerSwicth from '../../common/switch/customer-switch';
 // import SearchCustomer from '@/components/common/search/SearchCustomer';
@@ -44,6 +45,8 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
     setSelectedOption,
     setFormattedAmount,
   } = useAddInvoice({ serviceId });
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
+
   return (
     <div>
       <SizeWrapper>
@@ -127,24 +130,28 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
             <Flex
               justifyContent={'space-between'}
               alignItems={'center'}
-              px={'2.5rem'}
+              px={{ base: '1rem', md: '2.5rem' }}
               pb={'.8rem'}
-              mt={'2rem'}
+              mt={{ base: '0', md: '2rem' }}
             >
-              <Text variant={'subHeading'} fontWeight={500}>
+              <Text
+                variant={'subHeading'}
+                fontSize={{ base: '.8rem', md: '1rem' }}
+                fontWeight={500}
+              >
                 Invoice Information
               </Text>
 
               <Flex
                 alignItems={'center'}
-                fontSize={'1.2rem'}
+                fontSize={{ base: '.8rem', md: '1.2rem' }}
                 fontWeight={600}
                 color={'#2574C3'}
                 cursor={'pointer'}
                 gap={'.8rem'}
                 onClick={addItem}
               >
-                <GoPlus size={'2rem'} />
+                <GoPlus size={isDesktop ? '2rem' : '1rem'} />
                 <Text>Add new</Text>
               </Flex>
             </Flex>
@@ -155,8 +162,8 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
                 invoiceItems={invoiceItems}
               /> */}
 
-            <Box px={'2.5rem'} mt={'1.5rem'}>
-              <SimpleGrid gap={'1.2rem'} columns={{ base: 2, md: 3 }}>
+            <Box px={{ base: '1rem', md: '2.5rem' }} mt={'1.5rem'}>
+              <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 3 }}>
                 <GridItem>
                   <CustomSelect
                     placeholder="Type to search..."
@@ -207,25 +214,35 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
                 </GridItem>
               </SimpleGrid>
 
-              <Box minH={'10vh'} mt={'2rem'}>
+              <Stack minH={'10vh'} mt={'2rem'} mb="1rem">
                 {invoiceItems.map((item) => (
-                  <Stack key={item.service}>
+                  // <Stack key={item.service}>
+                  <Flex
+                    key={item.service}
+                    alignItems={{ base: 'flex-end', md: 'center' }}
+                    justifyContent={'space-between'}
+                    py={'.5rem'}
+                    borderBottom={'1px solid black'}
+                    textTransform={'uppercase'}
+                    fontWeight={600}
+                    flexWrap={'wrap'}
+                  >
                     <Flex
-                      alignItems={'center'}
+                      flex={1}
+                      gap={{ base: '.5rem', md: '0' }}
+                      flexDir={{ base: 'column', md: 'row' }}
                       justifyContent={'space-between'}
-                      py={'.5rem'}
-                      borderBottom={'1px solid black'}
-                      textTransform={'uppercase'}
-                      fontWeight={600}
                     >
-                      <Flex flex={1} justifyContent={'space-between'}>
-                        <Text
-                          flex={1}
-                          textTransform={'uppercase'}
-                          fontWeight={600}
-                        >
-                          {item.service}
-                        </Text>
+                      <Text
+                        flex={1}
+                        textTransform={'uppercase'}
+                        fontWeight={600}
+                        fontSize={{ base: '.8rem', md: '1rem' }}
+                        whiteSpace={'nowrap'}
+                      >
+                        {item.service}
+                      </Text>
+                      <Flex flex={1}>
                         <Text
                           flex={1}
                           textTransform={'uppercase'}
@@ -235,23 +252,24 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
                         </Text>
                         <Text>{item.formattedAmount}</Text>
                       </Flex>
-
-                      <Box ml={'3rem'}>
-                        <BsTrash
-                          onClick={() => deleteItem(item.service)}
-                          size={'1.3rem'}
-                          color="red"
-                          cursor={'pointer'}
-                        />
-                      </Box>
                     </Flex>
-                  </Stack>
+
+                    <Box ml={'3rem'}>
+                      <BsTrash
+                        onClick={() => deleteItem(item.service)}
+                        size={'1.3rem'}
+                        color="red"
+                        cursor={'pointer'}
+                      />
+                    </Box>
+                  </Flex>
+                  // </Stack>
                 ))}
-              </Box>
+              </Stack>
             </Box>
           </Box>
           {invoiceItems.length > 0 && (
-            <Center>
+            <Center mt={{ base: '1rem', md: '0' }}>
               <Button isLoading={isPending} minW={'9rem'} onClick={onSave}>
                 Create Invoice
               </Button>

@@ -9,12 +9,12 @@ export default function Status({
 }: { status: StatusEnum } & CenterProps) {
   return (
     <Center
-      minW={'6.7rem'}
-      rounded={'.6rem'}
-      h={'2.3rem'}
+      rounded={{ base: '.4rem', md: '.6rem' }}
+      h={{ base: '2rem', md: '2.3rem' }}
       bg={getColor(status).bgColor}
       textTransform={'capitalize'}
       {...styles}
+      fontSize={{ base: '.8rem', md: '1.1rem' }}
     >
       <Text fontWeight={600} color={getColor(status).textColor}>
         {status.toLowerCase()}

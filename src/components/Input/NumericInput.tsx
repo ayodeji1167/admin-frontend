@@ -25,8 +25,8 @@ export default function NumericInput(props: NumericInputProps) {
       <FormLabel
         requiredIndicator={<abbr title="required field"></abbr>}
         fontFamily={'body'}
-        fontWeight={'600'}
-        fontSize={'1.1rem'}
+        fontWeight={{ base: '500', md: 600 }}
+        fontSize={{ base: '.8rem', md: '1.1rem' }}
         {...props.formLabelProps}
         mb={{ base: '6px', md: '0.5rem' }}
       >
@@ -48,11 +48,12 @@ export default function NumericInput(props: NumericInputProps) {
         value={props.inputProps?.value as number}
         customInput={Input}
         _placeholder={{ color: '#898A8C' }}
-        {...props.inputProps}
         errorBorderColor="crimson"
-        h={'3rem'}
-        rounded={'1.2rem'}
+        h={{ base: '2.5rem', md: '3rem' }}
+        rounded={{ base: '.9rem', md: '1.2rem' }}
         border="1px solid #636D79"
+        fontSize={{ base: '.8rem', md: '1rem' }}
+        {...props.inputProps}
       />
       {props?.errorMessage && props?.touched && (
         <Text fontSize={'12px'} color={'red'}>

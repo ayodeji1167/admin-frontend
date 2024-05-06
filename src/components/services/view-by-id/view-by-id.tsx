@@ -35,14 +35,17 @@ function ServiceItem({
 }) {
   return (
     <Flex
-      pl={'1.2rem'}
-      fontSize={'1.2rem'}
+      pl={{ base: '1rem', md: '1.2rem' }}
       h={'2.3rem'}
       alignItems={'center'}
       gap={'.3rem'}
     >
-      <Text>{name}:</Text>
-      <Text textTransform={'uppercase'} fontWeight={600}>
+      <Text fontSize={{ base: '.8rem', md: '1rem' }}>{name}:</Text>
+      <Text
+        fontSize={{ base: '.8rem', md: '1rem' }}
+        textTransform={'uppercase'}
+        fontWeight={600}
+      >
         {value ? value : 'NULL'}
       </Text>
     </Flex>
@@ -66,6 +69,10 @@ export default function ViewById({ id }: { id: string }) {
   const jobOrder = data?.data?.jobOrder;
   const jobOrderDisclosure = useDisclosure();
   const jobCompletionDisclosure = useDisclosure();
+  const service = data?.data;
+
+  const vehicleName =
+    `${service?.vehicle?.make} ${service?.vehicle?.model} ${service?.vehicle?.registrationNumber}`.toUpperCase();
 
   if (isLoading) {
     return <LottieLoader />;
@@ -87,7 +94,7 @@ export default function ViewById({ id }: { id: string }) {
           <Text textStyle={'subHeading'}>Service Details</Text>
 
           <Link href={`/services/edit/${id}`}>
-            <Button minW={'11rem'}>Edit Service</Button>
+            <Button minW={{ base: '8rem', md: '11rem' }}>Edit Service</Button>
           </Link>
         </Flex>
         <Divider />
@@ -143,17 +150,20 @@ export default function ViewById({ id }: { id: string }) {
           <Flex justifyContent={'space-between'}>
             {!jobOrder ? (
               <Flex
-                mb={'2rem'}
+                mb={{ base: '0', md: '2rem' }}
                 justifyContent={'center'}
                 alignItems={'center'}
                 gap={'1rem'}
               >
-                <Text fontWeight={'500'} fontSize={'2rem'}>
+                <Text
+                  fontWeight={'500'}
+                  fontSize={{ base: '1rem', md: '2rem' }}
+                >
                   ADD JOB ORDER
                 </Text>
                 <Button
                   onClick={jobOrderDisclosure.onOpen}
-                  fontSize={'1.2rem'}
+                  fontSize={{ base: '.8rem', md: '1.2rem' }}
                   variant={'ghost'}
                 >
                   Add job order
@@ -161,7 +171,10 @@ export default function ViewById({ id }: { id: string }) {
               </Flex>
             ) : (
               <Link href={jobOrder?.url} target="_blank">
-                <Button fontSize={'1.2rem'} variant={'ghost'}>
+                <Button
+                  fontSize={{ base: '.8rem', md: '1.2rem' }}
+                  variant={'ghost'}
+                >
                   View job order
                 </Button>
               </Link>
@@ -230,7 +243,12 @@ export default function ViewById({ id }: { id: string }) {
         <Stack spacing={'2rem'} px={'2rem'}>
           {invoiceIsAvailable ? (
             <Box>
-              <Flex fontWeight={600} fontSize={'1rem'} color={'primary.700'}>
+              <Flex
+                fontWeight={600}
+                fontSize={{ base: '.8rem', md: '1rem' }}
+                color={'primary.700'}
+                mb={{ base: '.8rem', md: '0' }}
+              >
                 <Link href={`/invoices/edit/${data?.data?.invoice}`}>
                   Edit invoice
                 </Link>
@@ -239,12 +257,16 @@ export default function ViewById({ id }: { id: string }) {
                 buffer={pdfBuffer}
                 isLoading={invoicePdfLoading}
                 header="Invoice"
+                fileName={`INVOICE FOR ${vehicleName}`}
               />
             </Box>
           ) : (
             <Center>
               <Link href={`/invoices/add/${id}`}>
-                <Button fontSize={'1.2rem'} variant={'ghost'}>
+                <Button
+                  fontSize={{ base: '.8rem', md: '1.2rem' }}
+                  variant={'ghost'}
+                >
                   Generate Invoice
                 </Button>
               </Link>
@@ -253,21 +275,21 @@ export default function ViewById({ id }: { id: string }) {
         </Stack>
 
         <CustomModal
-          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          modalContentProps={{ w: { base: '95%', md: '60rem' } }}
           isOpen={addImagesDisclosure.isOpen}
           onClose={addImagesDisclosure.onClose}
         >
           <UploadImages onClose={addImagesDisclosure.onClose} id={id} />
         </CustomModal>
         <CustomModal
-          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          modalContentProps={{ w: { base: '95%', md: '60rem' } }}
           isOpen={jobOrderDisclosure.isOpen}
           onClose={jobOrderDisclosure.onClose}
         >
           <JobOrderImageModal onClose={jobOrderDisclosure.onClose} id={id} />
         </CustomModal>
         <CustomModal
-          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          modalContentProps={{ w: { base: '95%', md: '60rem' } }}
           isOpen={jobCompletionDisclosure.isOpen}
           onClose={jobCompletionDisclosure.onClose}
         >

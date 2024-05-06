@@ -95,7 +95,7 @@ export default function LogServiceModal({
             <FormLabel
               fontFamily={'body'}
               fontWeight={'600'}
-              fontSize={'1.1rem'}
+              fontSize={{ base: '.8rem', md: '1.1rem' }}
               htmlFor="email-alerts"
               mb={'0'}
             >
@@ -108,7 +108,7 @@ export default function LogServiceModal({
 
                 // setUseDefaultTimeIn((prev) => !prev);
               }}
-              size={'lg'}
+              size={{ base: 'sm', md: 'lg' }}
               id="email-alerts"
               isChecked={values.useDefaultTimeIn}
             />

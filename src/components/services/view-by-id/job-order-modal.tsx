@@ -9,6 +9,7 @@ import {
   chakra,
   Button,
   Text,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { CiImageOn } from 'react-icons/ci';
@@ -20,6 +21,7 @@ export default function JobOrderImageModal({
   id: string;
   onClose: any;
 }) {
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { mutateAsync, isPending } = useAddJobOrderApi();
@@ -47,7 +49,7 @@ export default function JobOrderImageModal({
     <Box pb={'3rem'} bg={'white'} borderRadius={'1.2rem'}>
       <Text
         mb={'.8rem'}
-        pl={'2.5rem'}
+        placeSelf={{ base: '0', md: '2.5rem' }}
         textStyle={'subHeading'}
         fontWeight={500}
       >
@@ -55,7 +57,7 @@ export default function JobOrderImageModal({
       </Text>
       <Divider />
 
-      <Box px={'2.5rem'} mt={'1rem'}>
+      <Box px={{ base: '0', md: '2.5rem' }} mt={'1rem'}>
         <Text color={'#333638'} fontWeight={600} fontSize={'1.2rem'}>
           Job Order
         </Text>
@@ -78,16 +80,22 @@ export default function JobOrderImageModal({
             accept=".pdf"
           />
           {!selectedFile && (
-            <CiImageOn color="#165D7C" fontSize={'4rem'} fontWeight={100} />
+            <CiImageOn
+              fontSize={isDesktop ? '4rem' : '2.5rem'}
+              color="#165D7C"
+              fontWeight={100}
+            />
           )}
           <Flex gap={'1rem'} mt={'.8rem'} alignItems={'center'}>
             {selectedFile ? (
-              <Text color={'#165D7C'}>
+              <Text fontSize={{ base: '.7rem', md: '1rem' }} color={'#165D7C'}>
                 {selectedFile.name}
                 <chakra.span>({formatFileSize(selectedFile.size)})</chakra.span>
               </Text>
             ) : (
-              <Text color={'#165D7C'}>Click To Upload PDF</Text>
+              <Text fontSize={{ base: '.8rem', md: '1rem' }} color={'#165D7C'}>
+                Click To Upload PDF
+              </Text>
             )}
           </Flex>
         </Center>
