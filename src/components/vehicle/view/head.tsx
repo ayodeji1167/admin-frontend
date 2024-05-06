@@ -24,7 +24,7 @@ export default function Head({ id }: { id: string }) {
 
       <CustomModal
         modalContentProps={{
-          minW: { base: '95%', md: '50rem' },
+          w: { base: '95%', md: '50rem' },
         }}
         isOpen={isOpen}
         onClose={onClose}

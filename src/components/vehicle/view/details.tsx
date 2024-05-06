@@ -269,7 +269,7 @@ export default function Details({ id }: { id: string }) {
         </CustomModal>
 
         <CustomModal
-          modalContentProps={{ minW: { base: '30rem', md: '60rem' } }}
+          modalContentProps={{ w: { base: '95%', md: '60rem' } }}
           isOpen={adImagesDisclosure.isOpen}
           onClose={adImagesDisclosure.onClose}
         >

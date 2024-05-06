@@ -9,6 +9,7 @@ import {
   Image,
   SimpleGrid,
   Text,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { CiImageOn } from 'react-icons/ci';
@@ -24,6 +25,8 @@ export default function UploadImages({
   id: string;
   onClose: any;
 }) {
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
+
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -77,10 +80,10 @@ export default function UploadImages({
     onClose && onClose();
   };
   return (
-    <Box pb={'3rem'} bg={'white'} borderRadius={'1.2rem'}>
+    <Box pb={{ base: '2rem', md: '3rem' }} bg={'white'} borderRadius={'1.2rem'}>
       <Text
         mb={'.8rem'}
-        pl={'2.5rem'}
+        pl={{ base: '0rem', md: '2.5rem' }}
         textStyle={'subHeading'}
         fontWeight={500}
       >
@@ -88,7 +91,7 @@ export default function UploadImages({
       </Text>
       <Divider />
 
-      <Box px={'2.5rem'} mt={'1rem'}>
+      <Box px={{ base: '0', md: '2.5rem' }} mt={'1rem'}>
         <Text color={'#333638'} fontWeight={600} fontSize={'1.2rem'}>
           Vehicle Photos
         </Text>
@@ -101,6 +104,7 @@ export default function UploadImages({
           flexDirection={'column'}
           onClick={() => fileInputRef?.current?.click()}
           cursor={'pointer'}
+          px={'1rem'}
         >
           <input
             type="file"
@@ -110,17 +114,31 @@ export default function UploadImages({
             onChange={handleFileChange}
             multiple
           />
-          <CiImageOn color="#165D7C" fontSize={'4rem'} fontWeight={100} />
-          <Flex gap={'1rem'} mt={'.8rem'} alignItems={'center'}>
+          <CiImageOn
+            color="#165D7C"
+            fontSize={isDesktop ? '4rem' : '2.5rem'}
+            fontWeight={100}
+          />
+          <Flex gap={'1rem'} my={'.8rem'} alignItems={'center'}>
             <LuImagePlus />
-            <Text color={'#165D7C'}>Upload cover image</Text>
+            <Text fontSize={{ base: '.8rem', md: '1rem' }} color={'#165D7C'}>
+              Upload images
+            </Text>
           </Flex>
-          <Text fontSize={'.9rem'} color={'#5D5E5F'}>
+          <Text
+            textAlign={'center'}
+            fontSize={{ base: '.7rem', md: '.9rem' }}
+            color={'#5D5E5F'}
+          >
             Upload images of the vehicle, including exterior and interior shots,
             for easy identification and reference
           </Text>
         </Center>
-        <SimpleGrid mt={'1rem'} gap={'1.6rem'} columns={4}>
+        <SimpleGrid
+          mt={'1rem'}
+          gap={{ base: '1rem', md: '1.6rem' }}
+          columns={{ base: 2, md: 4 }}
+        >
           {previewUrls?.map((item, index) => (
             <GridItem
               rounded={'.6rem'}
@@ -157,7 +175,7 @@ export default function UploadImages({
         </Text>
       )}
 
-      <Center my={'2rem'}>
+      <Center my={{ basE: '0', md: '2rem' }}>
         <Button
           isDisabled={!images.length}
           isLoading={isPending}
