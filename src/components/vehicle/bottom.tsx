@@ -48,16 +48,25 @@ export default function Bottom() {
   }, [search]);
 
   return (
-    <Box bg={'white'} mt={'2rem'} rounded={'1rem'} overflow={'hidden'}>
+    <Box
+      bg={'white'}
+      mt={'2rem'}
+      rounded={{ base: '.6rem', md: '1rem' }}
+      overflow={'hidden'}
+      mb={{ base: '2rem', md: 0 }}
+    >
       <Filter
         name={'Recent Service History'}
         inputProps={{
+          fontSize: { base: '.8rem', md: '1rem' },
+
           placeholder: 'Search by registration number',
           onChange: (e) => {
             setSearch(e.target.value);
           },
           _placeholder: {
             opacity: 0.4,
+            fontSize: { base: '.7rem', md: '1rem' },
           },
         }}
       />

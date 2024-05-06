@@ -44,7 +44,7 @@ export default function Custompopover({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        w={'20rem'}
+        w={{ base: '14rem', md: '20rem' }}
         mr={'2rem'}
         rounded={'1rem'}
         border="none"
@@ -60,10 +60,11 @@ export default function Custompopover({
                 href={item.path}
               >
                 <Flex
-                  fontSize={'1rem'}
+                  fontSize={{ base: '.81rem', md: '1rem' }}
                   alignItems={'center'}
                   gap={'.6rem'}
-                  p={'1rem'}
+                  p={{ base: '.61rem', md: '1rem' }}
+                  px={'1rem'}
                   color={item.color}
                   _hover={{
                     bg: '#3855B30A',
@@ -79,10 +80,11 @@ export default function Custompopover({
               <Flex
                 key={item.name}
                 cursor={'pointer'}
-                fontSize={'1rem'}
+                fontSize={{ base: '.81rem', md: '1rem' }}
                 alignItems={'center'}
                 gap={'.6rem'}
-                p={'1rem'}
+                p={{ base: '.61rem', md: '1rem' }}
+                px={'1rem'}
                 onClick={item.clickFn}
                 color={item.color}
                 _hover={{

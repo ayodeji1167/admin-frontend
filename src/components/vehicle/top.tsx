@@ -41,14 +41,14 @@ export default function Top() {
       >
         <Text textStyle={'subHeading'}>Overview</Text>
         <Link href={'/vehicles/add'}>
-          <Button minW={'10rem'}>Add vehicle</Button>
+          <Button minW={{ base: '8rem', md: '10rem' }}>Add vehicle</Button>
         </Link>
       </Flex>
       <SimpleGrid
-        h={'10rem'}
+        h={{ base: 'auto', md: '10rem' }}
         gap={'1.4rem'}
-        row={1}
-        columns={{ base: 2, md: 3 }}
+        row={{ base: 'auto', md: 1 }}
+        columns={{ base: 1, md: 3 }}
       >
         {vehicleMetrics?.map((item, index) => (
           <GridItem key={index}>
