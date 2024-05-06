@@ -9,13 +9,15 @@ const columnHelper = createColumnHelper<IVehicle>();
 export const columnDef = [
   columnHelper.display({
     id: 'check',
-    cell: () => <Checkbox />,
-    header: () => <Checkbox borderColor={'white'} />,
+    cell: () => <Checkbox size={{ base: 'sm', md: 'md' }} />,
+    header: () => (
+      <Checkbox size={{ base: 'sm', md: 'md' }} borderColor={'white'} />
+    ),
   }),
-  columnHelper.accessor('name', {
+  columnHelper.accessor('registrationNumber', {
     cell: (info) => <Box>{info.getValue()}</Box>,
-    header: 'Vehicle name',
-    id: 'vehicle-name',
+    header: 'Reg No',
+    id: 'registration-number',
   }),
   columnHelper.accessor('make', {
     cell: (info) => <Box>{info.getValue()?.toUpperCase()}</Box>,

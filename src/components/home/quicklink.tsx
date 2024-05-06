@@ -20,7 +20,7 @@ export default function Quicklink({
       <Box>
         <Image src={image.src} alt={name} objectFit={'cover'} />
       </Box>
-      <Box pt={'.9rem'} pl={'1.5rem'} pb={'1.6rem'}>
+      <Box pt={'.9rem'} pl={'1.5rem'} pb={{ base: '1rem', md: '1.6rem' }}>
         <Text textStyle={'subHeading'} mb={'.6rem'}>
           {name}
         </Text>

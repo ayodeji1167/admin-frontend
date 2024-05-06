@@ -10,21 +10,27 @@ import { IoNotificationsOutline } from 'react-icons/io5';
 import HeaderMenu from './HeaderMenu';
 import SizeWrapper from '../sizewrapper/SizeWrapper';
 import { useSession } from 'next-auth/react';
+import { useBreakpointValue } from '@chakra-ui/react';
 
 export default function Header() {
   const session = useSession();
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Box w={'100%'} overflow={'hidden'} py={'1rem'} bg={'#174777'}>
       <SizeWrapper>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
-          <Box w={'10rem'}>
+          <Box w={{ base: '8rem', md: '10rem' }}>
             <Logo to="/" />
           </Box>
 
           {session?.data?.user && (
             <>
-              <Flex alignItems={'center'} gap="1.2rem">
+              <Flex
+                alignItems={'center'}
+                display={{ base: 'none', md: 'flex' }}
+                gap="1.2rem"
+              >
                 {navs.map((item) => (
                   <Link
                     style={{ textDecoration: 'none' }}
@@ -35,8 +41,11 @@ export default function Header() {
                   </Link>
                 ))}
               </Flex>
-              <Flex gap={'1.2rem'} alignItems={'center'}>
-                <IoNotificationsOutline color="white" size={'1.7rem'} />
+              <Flex gap={{ base: '.5rem', md: '1.2rem' }} alignItems={'center'}>
+                <IoNotificationsOutline
+                  color="white"
+                  size={isDesktop ? '1.7rem' : '0rem'}
+                />
 
                 <HeaderMenu />
               </Flex>

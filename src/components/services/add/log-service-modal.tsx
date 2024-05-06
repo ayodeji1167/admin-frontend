@@ -41,33 +41,24 @@ export default function LogServiceModal({
   return (
     <Box pb={'2rem'}>
       <Text
-        mb={'1.2rem'}
+        mb={{ base: '.8rem', md: '1.2rem' }}
         fontWeight={700}
         fontFamily={'heading'}
-        fontSize={'1.8rem'}
+        fontSize={{ base: '1rem', md: '1.8rem' }}
       >
         Log New Service for Vehicle
       </Text>
-      <Text mb={'2rem'} color={'#5D5E5F'}>
+      <Text
+        mb={'2rem'}
+        fontSize={{ base: '.8rem', md: '1rem' }}
+        color={'#5D5E5F'}
+      >
         Please fill out the following form to log a new service appointment for
         the selected vehicle
       </Text>
 
       <form onSubmit={handleFormSubmit}>
-        <SimpleGrid gap={'1.2rem'} columns={2}>
-          {/* <GridItem>
-            <CustomSelect
-              placeholder="Select business"
-              options={[
-                { label: 'Individual', value: 'individual' },
-                { label: 'Partner', value: 'business' },
-              ]}
-              onChange={(val) => {
-                setFieldValue('ownershipType', val.value);
-              }}
-              label="Ownership"
-            />
-          </GridItem> */}
+        <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 2 }}>
           <GridItem>
             <StringInput
               errorMessage={errors.vehicle}
@@ -104,7 +95,7 @@ export default function LogServiceModal({
             <FormLabel
               fontFamily={'body'}
               fontWeight={'600'}
-              fontSize={'1.1rem'}
+              fontSize={{ base: '.8rem', md: '1.1rem' }}
               htmlFor="email-alerts"
               mb={'0'}
             >
@@ -117,7 +108,7 @@ export default function LogServiceModal({
 
                 // setUseDefaultTimeIn((prev) => !prev);
               }}
-              size={'lg'}
+              size={{ base: 'sm', md: 'lg' }}
               id="email-alerts"
               isChecked={values.useDefaultTimeIn}
             />

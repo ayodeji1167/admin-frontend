@@ -1,8 +1,8 @@
 'use client';
 import SizeWrapper from '@/components/sizewrapper/SizeWrapper';
-import React, { useState } from 'react';
+import React from 'react';
 
-import CustomBreadcrumb from '@/components/common/CustomBreadcrumb';
+// import CustomBreadcrumb from '@/components/common/CustomBreadcrumb';
 import {
   Flex,
   Button,
@@ -12,67 +12,45 @@ import {
   GridItem,
   SimpleGrid,
   Stack,
+  Center,
+  useBreakpointValue,
 } from '@chakra-ui/react';
-import CustomerSwicth from '../../common/switch/customer-switch';
-import SearchCustomer from '@/components/common/search/SearchCustomer';
-import UserForm from './user-form';
-import VehicleSwitch from '@/components/common/switch/vehicle-switch';
-import SearchVehicle from '@/components/common/search/SearchVehicle';
+// import CustomerSwicth from '../../common/switch/customer-switch';
+// import SearchCustomer from '@/components/common/search/SearchCustomer';
+// import UserForm from './user-form';
+// import VehicleSwitch from '@/components/common/switch/vehicle-switch';
+// import SearchVehicle from '@/components/common/search/SearchVehicle';
 import { GoPlus } from 'react-icons/go';
-import { useToast } from '@/hooks/useToast';
 import { BsTrash } from 'react-icons/bs';
 import NumericInput from '@/components/Input/NumericInput';
 import CustomSelect from '@/components/Input/CustomSelect';
 import { serviceOptions } from '@/data/options/invoices';
+import StringInput from '@/components/Input/StringInput';
+import { useAddInvoice } from '@/hooks/invoice/useAddInvoice';
+// import { ConsentModal } from '@/components/common/Modals/ConsentModal';
 
-export default function AddInvoice() {
-  const toast = useToast();
-  const [isExistingCustomer, setIsExistingCustomer] = useState(false);
-  const [isExistingVehicle, setIsExistingVehicle] = useState(false);
-  const [invoiceItems, setInvoiceItems] = useState<
-    Array<{ service: string; amount: any; formattedAmount: string }>
-  >([]);
-  const [service, setService] = useState('');
-  const [amount, setAmount] = useState('');
-  const [formattedAmount, setFormattedAmount] = useState('');
-  const [selectedOption, setSelectedOption] = useState<any>();
+export default function AddInvoice({ serviceId }: { serviceId: string }) {
+  const {
+    onSave,
+    deleteItem,
+    selectedOption,
+    isPending,
+    addItem,
+    invoiceItems,
+    amount,
+    setAmount,
+    quantity,
+    setQuantity,
+    setService,
+    setSelectedOption,
+    setFormattedAmount,
+  } = useAddInvoice({ serviceId });
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
-  const addItem = () => {
-    if (!service || !amount) {
-      toast({ description: 'Add service/amount', status: 'error' });
-      return;
-    }
-    invoiceItems.forEach((item) => {
-      if (item.service.toLowerCase() === service.toLowerCase()) {
-        const newItems = invoiceItems.filter(
-          (item) => item.service.toLowerCase() !== service.toLowerCase()
-        );
-        setInvoiceItems(newItems);
-      }
-    });
-    setInvoiceItems((prev) => [...prev, { service, amount, formattedAmount }]);
-    setAmount('');
-    setService('');
-    setFormattedAmount('');
-    setSelectedOption(null);
-  };
-
-  const deleteItem = (service: string) => {
-    const newItems = invoiceItems.filter(
-      (item) => item.service.toLowerCase() !== service.toLowerCase()
-    );
-    setInvoiceItems(newItems);
-  };
-
-  const onSave = () => {
-    // console.log('invoices items are ====>', invoiceItems);
-    return invoiceItems;
-  };
   return (
     <div>
       <SizeWrapper>
-        <form>
-          <Flex
+        {/* <Flex
             alignItems={'center'}
             justifyContent={'space-between'}
             pt={'2rem'}
@@ -97,9 +75,9 @@ export default function AddInvoice() {
                 Save and Submit
               </Button>
             </Flex>
-          </Flex>
-          <Box bg={'white'} pb={'3rem'}>
-            <Box pb={'3rem'} mt={'2rem'} pt={'1.6rem'} rounded={'.6rem'}>
+          </Flex> */}
+        <Box bg={'white'} pb={'3rem'}>
+          {/* <Box pb={'3rem'} mt={'2rem'} pt={'1.6rem'} rounded={'.6rem'}>
               <CustomerSwicth
                 setIsExistingCustomer={setIsExistingCustomer}
                 isExistingCustomer={isExistingCustomer}
@@ -140,119 +118,165 @@ export default function AddInvoice() {
               <Divider />
 
               {isExistingVehicle ? <SearchVehicle /> : <UserForm />}
-            </Box>
+            </Box> */}
 
-            <Box
-              pb={'3rem'}
-              mt={'2rem'}
-              pt={'1.6rem'}
-              bg={'white'}
-              rounded={'.6rem'}
+          <Box
+            pb={'1rem'}
+            mt={'2rem'}
+            pt={'1.6rem'}
+            bg={'white'}
+            rounded={'.6rem'}
+          >
+            <Flex
+              justifyContent={'space-between'}
+              alignItems={'center'}
+              px={{ base: '1rem', md: '2.5rem' }}
+              pb={'.8rem'}
+              mt={{ base: '0', md: '2rem' }}
             >
-              <Flex
-                justifyContent={'space-between'}
-                alignItems={'center'}
-                px={'2.5rem'}
-                pb={'.8rem'}
-                mt={'2rem'}
+              <Text
+                variant={'subHeading'}
+                fontSize={{ base: '.8rem', md: '1rem' }}
+                fontWeight={500}
               >
-                <Text variant={'subHeading'} fontWeight={500}>
-                  Invoice Information
-                </Text>
+                Invoice Information
+              </Text>
 
-                <Flex
-                  alignItems={'center'}
-                  fontSize={'1.2rem'}
-                  fontWeight={600}
-                  color={'#2574C3'}
-                  cursor={'pointer'}
-                  gap={'.8rem'}
-                  onClick={addItem}
-                >
-                  <GoPlus size={'2rem'} />
-                  <Text>Add new</Text>
-                </Flex>
+              <Flex
+                alignItems={'center'}
+                fontSize={{ base: '.8rem', md: '1.2rem' }}
+                fontWeight={600}
+                color={'#2574C3'}
+                cursor={'pointer'}
+                gap={'.8rem'}
+                onClick={addItem}
+              >
+                <GoPlus size={isDesktop ? '2rem' : '1rem'} />
+                <Text>Add new</Text>
               </Flex>
-              <Divider />
+            </Flex>
+            <Divider />
 
-              {/* <InvoiceForm
+            {/* <InvoiceForm
                 setInvoiceItems={setInvoiceItems}
                 invoiceItems={invoiceItems}
               /> */}
 
-              <Box px={'2.5rem'} mt={'1.5rem'}>
-                <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 2 }}>
-                  <GridItem>
-                    <CustomSelect
-                      placeholder="Type to search..."
-                      options={serviceOptions.map((item) => ({
-                        label: item,
-                        value: item,
-                      }))}
-                      onChange={(e) => {
-                        setService(e.value);
-                        setSelectedOption(e);
-                      }}
-                      label="Service"
-                      selectedOption={selectedOption}
-                    />
-                  </GridItem>
-                  <GridItem>
-                    <NumericInput
-                      onValueChange={(values: any) => {
-                        setAmount(values.floatValue);
-                        setFormattedAmount(values.formattedValue);
-                      }}
-                      formControlProps={{
-                        label: 'Amount',
-                      }}
-                      inputProps={{
-                        placeholder: 'Enter amount',
-                        // onChange: (e) => {
-                        //   console.log('e is ', e.target);
+            <Box px={{ base: '1rem', md: '2.5rem' }} mt={'1.5rem'}>
+              <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 3 }}>
+                <GridItem>
+                  <CustomSelect
+                    placeholder="Type to search..."
+                    options={serviceOptions.map((item) => ({
+                      label: item,
+                      value: item,
+                    }))}
+                    onChange={(e) => {
+                      setService(e.value);
+                      setSelectedOption(e);
+                    }}
+                    label="Service"
+                    selectedOption={selectedOption}
+                  />
+                </GridItem>
+                <GridItem>
+                  <StringInput
+                    inputProps={{
+                      type: 'number',
+                      placeholder: 'Enter quantity',
+                      onChange: (e) => {
+                        setQuantity(Number(e.target.value));
+                      },
+                      value: quantity,
+                    }}
+                    formControlProps={{ isRequired: true, label: 'Quantity' }}
+                  />
+                </GridItem>
+                <GridItem>
+                  <NumericInput
+                    onValueChange={(values: any) => {
+                      setAmount(values.floatValue);
+                      setFormattedAmount(values.formattedValue);
+                    }}
+                    formControlProps={{
+                      label: 'Amount',
+                    }}
+                    inputProps={{
+                      placeholder: 'Enter amount',
+                      // onChange: (e) => {
+                      //   console.log('e is ', e.target);
 
-                        //   setAmount(e.target.value);
-                        // },
-                        value: amount,
-                      }}
-                    />
-                  </GridItem>
-                </SimpleGrid>
+                      //   setAmount(e.target.value);
+                      // },
+                      value: amount,
+                    }}
+                  />
+                </GridItem>
+              </SimpleGrid>
 
-                <Box minH={'20vh'} mt={'2rem'}>
-                  {invoiceItems.map((item) => (
-                    <Stack key={item.service}>
-                      <Flex
-                        alignItems={'center'}
-                        justifyContent={'space-between'}
-                        py={'.5rem'}
-                        borderBottom={'1px solid black'}
+              <Stack minH={'10vh'} mt={'2rem'} mb="1rem">
+                {invoiceItems.map((item) => (
+                  // <Stack key={item.service}>
+                  <Flex
+                    key={item.service}
+                    alignItems={{ base: 'flex-end', md: 'center' }}
+                    justifyContent={'space-between'}
+                    py={'.5rem'}
+                    borderBottom={'1px solid black'}
+                    textTransform={'uppercase'}
+                    fontWeight={600}
+                    flexWrap={'wrap'}
+                  >
+                    <Flex
+                      flex={1}
+                      gap={{ base: '.5rem', md: '0' }}
+                      flexDir={{ base: 'column', md: 'row' }}
+                      justifyContent={'space-between'}
+                    >
+                      <Text
+                        flex={1}
                         textTransform={'uppercase'}
                         fontWeight={600}
+                        fontSize={{ base: '.8rem', md: '1rem' }}
+                        whiteSpace={'nowrap'}
                       >
-                        <Flex flex={1} justifyContent={'space-between'}>
-                          <Text textTransform={'uppercase'} fontWeight={600}>
-                            {item.service}
-                          </Text>
-                          <Text>{item.formattedAmount}</Text>
-                        </Flex>
-
-                        <Box ml={'3rem'}>
-                          <BsTrash
-                            onClick={() => deleteItem(item.service)}
-                            size={'1.3rem'}
-                            color="red"
-                            cursor={'pointer'}
-                          />
-                        </Box>
+                        {item.service}
+                      </Text>
+                      <Flex flex={1}>
+                        <Text
+                          flex={1}
+                          textTransform={'uppercase'}
+                          fontWeight={600}
+                        >
+                          {item.quantity}
+                        </Text>
+                        <Text>{item.formattedAmount}</Text>
                       </Flex>
-                    </Stack>
-                  ))}
-                </Box>
-              </Box>
+                    </Flex>
+
+                    <Box ml={'3rem'}>
+                      <BsTrash
+                        onClick={() => deleteItem(item.service)}
+                        size={'1.3rem'}
+                        color="red"
+                        cursor={'pointer'}
+                      />
+                    </Box>
+                  </Flex>
+                  // </Stack>
+                ))}
+              </Stack>
             </Box>
           </Box>
-        </form>
+          {invoiceItems.length > 0 && (
+            <Center mt={{ base: '1rem', md: '0' }}>
+              <Button isLoading={isPending} minW={'9rem'} onClick={onSave}>
+                Create Invoice
+              </Button>
+            </Center>
+          )}
+        </Box>
+        {/* <ConsentModal  isOpen={isOpen}onClose={onClose} setProceed={setProceed}/> */}
       </SizeWrapper>
     </div>
   );

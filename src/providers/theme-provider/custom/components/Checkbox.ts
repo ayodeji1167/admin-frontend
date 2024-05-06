@@ -12,7 +12,7 @@ const baseStyle = definePartsStyle({
     color: '#424955',
   },
   control: {
-    padding: { base: 2, md: 3 },
+    padding: { base: '.1px', md: 3 },
     borderRadius: { base: '4px', md: '7px' },
     borderWidth: '1px',
     boxShadow: 'none',
@@ -24,6 +24,11 @@ const baseStyle = definePartsStyle({
 });
 
 const sizes = {
+  sm: definePartsStyle({
+    control: defineStyle({
+      p: 1.5,
+    }),
+  }),
   md: definePartsStyle({
     control: defineStyle({
       p: 2.5,

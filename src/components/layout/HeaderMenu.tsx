@@ -11,6 +11,7 @@ import {
   Divider,
   Button,
   PopoverArrow,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import React from 'react';
 import userAdmin from '@/assets/useradmin.jpeg';
@@ -28,6 +29,7 @@ export default function HeaderMenu() {
     logout && logout();
     onClose();
   };
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Popover
@@ -45,7 +47,12 @@ export default function HeaderMenu() {
           alignItems={'center'}
           cursor={'pointer'}
         >
-          <Box overflow={'hidden'} borderRadius={'50%'} h={'3rem'} w={'3rem'}>
+          <Box
+            overflow={'hidden'}
+            borderRadius={'50%'}
+            h={{ base: '2rem', md: '3rem' }}
+            w={{ base: '2rem', md: '3rem' }}
+          >
             <Image
               w={'100%'}
               h={'100%'}
@@ -55,7 +62,10 @@ export default function HeaderMenu() {
             />
           </Box>
 
-          <IoIosArrowDown size={'1.7rem'} color={'white'} />
+          <IoIosArrowDown
+            size={isDesktop ? '1.7rem' : '1rem'}
+            color={'white'}
+          />
         </Button>
       </PopoverTrigger>
       <PopoverContent

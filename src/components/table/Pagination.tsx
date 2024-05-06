@@ -9,7 +9,7 @@ export default function Pagination({ pagination, total }: any) {
   const to = Math.floor(from + pagination.pageSize);
   return (
     <Flex py={'1rem'} bg={'white'}>
-      <Text>
+      <Text fontSize={{ base: '.81rem', md: '1rem' }}>
         {from || 1} to {to > total ? total : to} out of {total}
       </Text>
 

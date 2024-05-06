@@ -22,8 +22,8 @@ export default function CustomTextArea(props: StringInputProps) {
       <FormLabel
         requiredIndicator={<abbr title="required field"></abbr>}
         fontFamily={'body'}
-        fontWeight={'600'}
-        fontSize={'1.1rem'}
+        fontWeight={{ base: '500', md: 600 }}
+        fontSize={{ base: '.8rem', md: '1.1rem' }}
         {...props.formLabelProps}
         mb={{ base: '6px', md: '0.5rem' }}
       >

@@ -16,4 +16,5 @@ export interface IService {
   timeIn: any;
   timeOut: any;
   useDefaultTimeIn: boolean;
+  useDefaultTimeOut?: boolean;
 }

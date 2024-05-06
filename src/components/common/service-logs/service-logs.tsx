@@ -20,13 +20,22 @@ export default function ServiceLogs({ vehicleId }: { vehicleId?: string }) {
     pageIndex: 0,
     pageSize: 15,
   });
-  const { data, isLoading } = useGetAllServices(pagination);
+  const filterData: any = pagination;
+  if (vehicleId) {
+    filterData.vehicleId = vehicleId;
+  }
+  const { data, isLoading } = useGetAllServices(filterData);
 
   if (isLoading) {
     return <LottieLoader />;
   } else {
     return (
-      <Box bg={'white'} mt={'2rem'} rounded={'1rem'} overflow={'hidden'}>
+      <Box
+        bg={'white'}
+        mt={'2rem'}
+        rounded={{ base: 0, md: '1rem' }}
+        overflow={'hidden'}
+      >
         <CustomTable
           sorting={sorting}
           pagination={pagination}
@@ -35,7 +44,7 @@ export default function ServiceLogs({ vehicleId }: { vehicleId?: string }) {
           columnDef={columnDef}
           data={data?.data?.services}
           filter={{
-            tableName: 'Recent Service History' + vehicleId,
+            tableName: 'Recent Service History',
           }}
           total={data?.data.total || 0}
           tableOptions={{

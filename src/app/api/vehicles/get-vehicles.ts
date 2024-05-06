@@ -6,11 +6,12 @@ import {
   QueryConfigType,
   useQuery,
 } from '@/lib/react-query';
+import { constructUrl } from '@/utils/construct-url';
 
-export const getAllVehicles = async (pagination: any) => {
+export const getAllVehicles = async (filter: any) => {
   const axios = AuthAxios();
   const response = await axios.get<ApiResponse<GetAllVehicleResponseType>>(
-    `/vehicle?pageNumber=${pagination.pageIndex + 1}&pageSize=${pagination.pageSize}`
+    constructUrl(`/vehicle`, filter)
   );
   return response.data;
 };
@@ -19,7 +20,7 @@ type QueryFnType = typeof getAllVehicles;
 
 export const useGetAllvehicles = (
   // data: Pick<GetAllDevicesRequest, 'filter'>,
-  pagination: any,
+  filter: any,
   config?: QueryConfigType<QueryFnType>
 ) => {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
@@ -28,8 +29,8 @@ export const useGetAllvehicles = (
       else if (failureCount < 1) return true;
       else return false;
     },
-    queryKey: ['get-all-devices', pagination.pageIndex],
-    queryFn: () => getAllVehicles(pagination),
+    queryKey: ['get-all-devices', filter.pageIndex, filter?.search],
+    queryFn: () => getAllVehicles(filter),
 
     ...config,
   });

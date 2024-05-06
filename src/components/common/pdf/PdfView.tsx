@@ -1,12 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { chakra } from '@chakra-ui/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Flex, chakra, Text, Button } from '@chakra-ui/react';
 import LottieLoader from '@/components/Loader/LottieLoader';
 interface PDFViewerProps {
-  pdfUrl: string;
+  pdfUrl?: string;
+  fileName?: string;
+  header: string;
+  buffer: any;
+  isLoading: boolean;
 }
 
-const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
+const PDFViewer: React.FC<PDFViewerProps> = ({
+  pdfUrl,
+  header,
+  buffer,
+  isLoading,
+  fileName,
+}) => {
   const [loading, setLoading] = useState(true);
+  const downloadRef = useRef<any>(null);
+  const pdfBlob = new Blob([new Uint8Array(buffer).buffer], {
+    type: 'application/pdf',
+  });
+  const pdfUrlBuf = window.URL.createObjectURL(pdfBlob);
+
+  const handleDownload = () => {
+    // Step 1: Convert Buffer to Blob
+
+    // Step 2: Create URL for Blob
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Step 3: Create a link element
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pdfUrl;
+
+    // Step 4: Set the download attribute to the desired filename
+    downloadLink.download = fileName || `INVOICE`;
+
+    // Step 5: Append the link to the document body
+    document.body.appendChild(downloadLink);
+
+    // Step 6: Programmatically click the link to trigger the download
+    downloadLink.click();
+
+    // Step 7: Clean up: remove the link after the download is initiated
+    document.body.removeChild(downloadLink);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -19,7 +57,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
     return () => clearTimeout(timer);
   }, [pdfUrl]);
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <div>
         <LottieLoader />
@@ -29,12 +67,17 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
+      <Flex alignItems={'center'} gap={'1rem'}>
+        <Text textStyle={'subHeading'}>{header}</Text>
+        <Button onClick={handleDownload} ref={downloadRef} variant={'outline'}>
+          Download pdf
+        </Button>
+      </Flex>
       <chakra.iframe
-        src={pdfUrl}
+        src={pdfUrlBuf}
         my={'1rem'}
         w={'100%'}
-        h={'70rem'}
-        frameBorder="0"
+        h={{ base: '50rem', md: '70rem' }}
       ></chakra.iframe>
     </div>
   );

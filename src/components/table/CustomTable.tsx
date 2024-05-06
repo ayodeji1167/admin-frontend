@@ -20,7 +20,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import React from 'react';
-import Filter from './Filter';
+// import Filter from './Filter';
 import Pagination from './Pagination';
 import { FaSortDown, FaSortUp } from 'react-icons/fa';
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md';
@@ -34,8 +34,8 @@ function PaginationBox(props: PaginationBoxProps) {
   return (
     <Center
       shadow={'md'}
-      w={'3.6rem'}
-      h={'2.5rem'}
+      w={{ base: '2.6rem', md: '3.6rem' }}
+      h={{ base: '2rem', md: '2.5rem' }}
       cursor={props.disabled ? 'not-allowed' : 'pointer'}
       fontSize={!props.disabled ? '1.4rem' : '1rem'}
       onClick={!props.disabled ? props.onClick : () => {}}
@@ -58,7 +58,7 @@ interface CustomTableProps {
   setPagination: any;
   columnDef: any;
   data: Array<any> | undefined;
-  filter: {
+  filter?: {
     tableName: string;
     inputProps?: InputProps;
   };
@@ -72,7 +72,7 @@ export default function CustomTable({
   setPagination,
   columnDef,
   data = [],
-  filter,
+  // filter,
   total = 0,
   tableOptions,
 }: CustomTableProps) {
@@ -89,22 +89,30 @@ export default function CustomTable({
   });
 
   return (
-    <Box>
-      <Filter name={filter.tableName} inputProps={filter.inputProps} />
+    <Box overflowX={'scroll'}>
+      {/* <Filter name={filter.tableName} inputProps={filter.inputProps} /> */}
 
       <Table variant="unstyled">
         <Thead>
           {table?.getHeaderGroups().map((headerGroup) => (
-            <Tr py={'1rem'} bg={'primary.700'} key={headerGroup.id}>
+            <Tr
+              py={{ base: '.6rem', md: '1rem' }}
+              bg={'primary.700'}
+              key={headerGroup.id}
+              h={'1rem'}
+            >
               {headerGroup.headers.map((header) => {
                 return (
                   <Th
                     key={header.id}
                     color={'white'}
                     fontFamily={'body'}
-                    fontSize={'1rem'}
-                    fontWeight={'700'}
-                    textTransform={'capitalize'}
+                    fontSize={{ base: '.81rem', md: '1rem' }}
+                    fontWeight={{ base: 600, md: '700' }}
+                    textTransform={{ base: 'uppercase', md: 'capitalize' }}
+                    whiteSpace={'nowrap'}
+
+                    // py={{ base: '0.8rem', md: '1rem' }}
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -134,6 +142,8 @@ export default function CustomTable({
               fontWeight={400}
               mb={4}
               bg={index % 2 === 0 ? 'white' : '#3855B30A'}
+              whiteSpace="nowrap"
+              fontSize={{ base: '.81rem', md: '1rem' }}
             >
               {row.getVisibleCells().map((cell: any) => {
                 // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
@@ -149,7 +159,12 @@ export default function CustomTable({
         </Tbody>
       </Table>
 
-      <Flex px={'2rem'} justifyContent={'space-between'} alignItems={'center'}>
+      <Flex
+        py={{ base: '1rem', md: '0' }}
+        px={'2rem'}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+      >
         <Pagination pagination={pagination} total={total} />
         <Flex alignItems={'center'} gap={'1rem'}>
           {/* <Button

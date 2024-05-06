@@ -11,15 +11,25 @@ export default function Filter({ name, inputProps }: FilterProps) {
   return (
     <Flex
       py={'1.5rem'}
-      px={'2rem'}
+      px={{ base: '1rem', md: '2rem' }}
       alignItems={'center'}
       justifyContent={'space-between'}
+      flexWrap={'wrap'}
+      gap={{ base: '1rem', md: '0' }}
     >
-      <Text fontFamily={'heading'} fontWeight={600} fontSize={'1.2rem'}>
+      <Text
+        fontFamily={'heading'}
+        fontWeight={600}
+        fontSize={{ base: '0.8rem', md: '1.2rem' }}
+      >
         {name}
       </Text>
       <Flex>
-        <Input {...inputProps} placeholder="Search" w={'20rem'} />
+        <Input
+          placeholder="Search"
+          w={{ base: '80vw', md: '20rem' }}
+          {...inputProps}
+        />
       </Flex>
     </Flex>
   );

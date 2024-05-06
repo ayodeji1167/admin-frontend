@@ -9,7 +9,7 @@ import SimpleGrid from '@/components/ui/chakra/SimpleGrid';
 import { servicesMetrics } from './data';
 import MetricCard from '@/components/common/MetricCard';
 import { useDisclosure } from '@chakra-ui/react';
-import CustomModal from '@/components/common/CustomModal';
+import CustomModal from '@/components/common/Modals/CustomModal';
 import LogServiceModal from '@/components/services/add/log-service-modal';
 
 export default function Top() {
