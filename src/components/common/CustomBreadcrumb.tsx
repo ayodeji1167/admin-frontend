@@ -12,7 +12,7 @@ export default function CustomBreadcrumb() {
 
   return (
     <div>
-      <Breadcrumb separator=">">
+      <Breadcrumb separator=">" display={{ base: 'none', md: 'block' }}>
         {crumbs?.map((crumb, index) => {
           const isCurrentPage = index === crumbs.length - 1;
           const href = crumbs.slice(0, index + 1).join('/');

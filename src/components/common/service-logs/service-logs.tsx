@@ -30,7 +30,12 @@ export default function ServiceLogs({ vehicleId }: { vehicleId?: string }) {
     return <LottieLoader />;
   } else {
     return (
-      <Box bg={'white'} mt={'2rem'} rounded={'1rem'} overflow={'hidden'}>
+      <Box
+        bg={'white'}
+        mt={'2rem'}
+        rounded={{ base: 0, md: '1rem' }}
+        overflow={'hidden'}
+      >
         <CustomTable
           sorting={sorting}
           pagination={pagination}

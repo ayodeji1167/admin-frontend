@@ -110,6 +110,7 @@ export default function CustomTable({
                     fontSize={{ base: '.81rem', md: '1rem' }}
                     fontWeight={{ base: 600, md: '700' }}
                     textTransform={{ base: 'uppercase', md: 'capitalize' }}
+                    whiteSpace={'nowrap'}
 
                     // py={{ base: '0.8rem', md: '1rem' }}
                   >

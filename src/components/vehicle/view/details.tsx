@@ -9,6 +9,7 @@ import {
   Image,
   SimpleGrid,
   Text,
+  useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -32,20 +33,25 @@ function VehicleItem({
 }) {
   return (
     <Flex
-      pl={'1.2rem'}
-      fontSize={'1.2rem'}
+      pl={{ base: '1rem', md: '1.2rem' }}
       h={'2.3rem'}
       alignItems={'center'}
       gap={'.3rem'}
     >
-      <Text>{name}:</Text>
-      <Text textTransform={'uppercase'} fontWeight={600}>
+      <Text fontSize={{ base: '.8rem', md: '1rem' }}>{name}:</Text>
+      <Text
+        fontSize={{ base: '.8rem', md: '1rem' }}
+        textTransform={'uppercase'}
+        fontWeight={600}
+      >
         {value ? value : 'NULL'}
       </Text>
     </Flex>
   );
 }
 export default function Details({ id }: { id: string }) {
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
+
   const { data, isLoading, refetch } = useGetVehiclebyId(id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const adImagesDisclosure = useDisclosure();
@@ -105,7 +111,7 @@ export default function Details({ id }: { id: string }) {
         bg={'white'}
       >
         <Flex
-          px={'1.8rem'}
+          px={{ base: '1rem', md: '1.8rem' }}
           pb={'1.5rem'}
           alignItems={'center'}
           justifyContent={'space-between'}
@@ -113,23 +119,25 @@ export default function Details({ id }: { id: string }) {
           <Text textStyle={'subHeading'}>Vehicle Details</Text>
 
           <Link href={`/vehicles/edit/${id}`}>
-            <Button minW={'11rem'}>Edit Vehicle details</Button>
+            <Button minW={{ base: '7rem', md: '11rem' }}>
+              {!isDesktop ? 'Edit' : 'Edit Vehicle details'}
+            </Button>
           </Link>
         </Flex>
         <Divider />
-        <Box px={'1.8rem'} pt={'1.8rem'}>
+        <Box px={{ base: '1rem', md: '1.8rem' }} pt={'1.8rem'}>
           {hasImages && (
             <Button
               mb={'1rem'}
               onClick={adImagesDisclosure.onOpen}
-              fontSize={'1.2rem'}
+              fontSize={{ base: '.8rem', md: '1.2rem' }}
               variant={'ghost'}
             >
               Add More images
             </Button>
           )}
           {hasImages ? (
-            <SimpleGrid gap={'1.6rem'} columns={4}>
+            <SimpleGrid gap={'1.6rem'} columns={{ base: 2, md: 4 }}>
               {images?.map((item, index) => (
                 <GridItem
                   rounded={'.6rem'}
@@ -154,12 +162,16 @@ export default function Details({ id }: { id: string }) {
               alignItems={'center'}
               gap={'1rem'}
             >
-              <Text fontWeight={'500'} fontSize={'2rem'} fontStyle={'italic'}>
+              <Text
+                fontWeight={'500'}
+                fontSize={{ base: '.8rem', md: '1.2rem' }}
+                fontStyle={'italic'}
+              >
                 Oops! This device has no image
               </Text>
               <Button
                 onClick={adImagesDisclosure.onOpen}
-                fontSize={'1.2rem'}
+                fontSize={{ base: '.8rem', md: '1.2rem' }}
                 variant={'ghost'}
               >
                 Add images
@@ -209,8 +221,12 @@ export default function Details({ id }: { id: string }) {
           </SimpleGrid>
 
           {hasOwner ? (
-            <Center mt={'2rem'} gap={'1.3rem'}>
-              <Text fontWeight={700} fontSize={'1.2rem'}>
+            <Center
+              flexDir={{ base: 'column', md: 'row' }}
+              mt={{ base: '0rem', md: '2rem' }}
+              gap={'1.3rem'}
+            >
+              <Text fontWeight={700} fontSize={{ base: '.8rem', md: '1.2rem' }}>
                 This vehicle is owned by{' '}
                 <Link
                   href={ownerLink}
