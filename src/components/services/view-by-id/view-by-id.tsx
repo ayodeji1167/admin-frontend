@@ -6,7 +6,7 @@ import {
   Divider,
   Flex,
   GridItem,
-  // Image,
+  chakra,
   SimpleGrid,
   Stack,
   Text,
@@ -22,7 +22,7 @@ import moment from 'moment';
 import { useGetService } from '@/hooks/service/useGetServices';
 import UploadImages from '@/components/vehicle/view/upload-images';
 import PDFViewer from '@/components/common/pdf/PdfView';
-import { useGenerateInvoicePdf } from '@/app/api/service/generate-invoice-pdf';
+// import { useGenerateInvoicePdf } from '@/app/api/service/generate-invoice-pdf';
 import JobOrderImageModal from './job-order-modal';
 import SendJobCompletionmodal from './SendJobCompletionmodal';
 
@@ -63,13 +63,15 @@ export default function ViewById({ id }: { id: string }) {
     // refetch,
   } = useGetService({ id });
   const invoiceIsAvailable = Boolean(data?.data?.invoice);
-  const { data: invoicePdfData, isLoading: invoicePdfLoading } =
-    useGenerateInvoicePdf(id, { enabled: invoiceIsAvailable });
-  const pdfBuffer = invoicePdfData?.data?.data;
+  const invoicePdfIsAvailable = Boolean(data?.data?.invoice?.pdf);
+  // const { data: invoicePdfData, isLoading: invoicePdfLoading } =
+  //   useGenerateInvoicePdf(id, { enabled: invoiceIsAvailable });
+  // const pdfBuffer = invoicePdfData?.data?.data;
   const jobOrder = data?.data?.jobOrder;
   const jobOrderDisclosure = useDisclosure();
   const jobCompletionDisclosure = useDisclosure();
   const service = data?.data;
+  const pdfBuffer = service?.invoice?.pdf;
 
   const vehicleName =
     `${service?.vehicle?.make} ${service?.vehicle?.model} ${service?.vehicle?.registrationNumber}`.toUpperCase();
@@ -249,16 +251,30 @@ export default function ViewById({ id }: { id: string }) {
                 color={'primary.700'}
                 mb={{ base: '.8rem', md: '0' }}
               >
-                <Link href={`/invoices/edit/${data?.data?.invoice}`}>
+                <Link href={`/invoices/edit/${data?.data?.invoice?._id}`}>
                   Edit invoice
                 </Link>
               </Flex>
-              <PDFViewer
-                buffer={pdfBuffer}
-                isLoading={invoicePdfLoading}
-                header="Invoice"
-                fileName={`INVOICE FOR ${vehicleName}`}
-              />
+              {invoicePdfIsAvailable ? (
+                <PDFViewer
+                  buffer={pdfBuffer}
+                  isLoading={isLoading}
+                  header="Invoice"
+                  fileName={`INVOICE FOR ${vehicleName}`}
+                />
+              ) : (
+                <Text py={'2rem'}>
+                  Empty pdf, please{' '}
+                  <chakra.span
+                    cursor={'pointer'}
+                    onClick={() => window.location.reload()}
+                    color={'blue'}
+                  >
+                    Refresh
+                  </chakra.span>{' '}
+                  after some seconds
+                </Text>
+              )}
             </Box>
           ) : (
             <Center>

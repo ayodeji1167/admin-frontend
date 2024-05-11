@@ -1,5 +1,5 @@
 export const serviceOptions = [
-  'Periodic maintenance',
+  'Servicing',
   'Body & painting',
   'Front Shock absorber',
   'Rear shock absorber',

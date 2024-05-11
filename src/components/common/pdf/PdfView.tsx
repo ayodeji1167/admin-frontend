@@ -18,7 +18,11 @@ const PDFViewer: React.FC<PDFViewerProps> = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const downloadRef = useRef<any>(null);
-  const pdfBlob = new Blob([new Uint8Array(buffer).buffer], {
+  const actualBuffer = Buffer.from(buffer, 'base64');
+
+  // Create a Blob object from the buffer
+  // const blob = new Blob([buffer], { type: 'application/pdf' });
+  const pdfBlob = new Blob([new Uint8Array(actualBuffer).buffer], {
     type: 'application/pdf',
   });
   const pdfUrlBuf = window.URL.createObjectURL(pdfBlob);
