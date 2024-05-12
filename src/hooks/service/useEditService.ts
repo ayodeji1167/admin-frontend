@@ -57,6 +57,11 @@ export const useEditService = ({ serviceId }: { serviceId?: string }) => {
         serviceId: String(serviceId),
         data: { ...values, timeOut },
       });
+      // console.log({
+      //   serviceId: String(serviceId),
+      //   data: { ...values, timeOut },
+      // });
+      // return;
       refetch();
       window.location.href = `/services/${serviceId}`;
     },

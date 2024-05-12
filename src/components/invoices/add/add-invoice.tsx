@@ -15,11 +15,7 @@ import {
   Center,
   useBreakpointValue,
 } from '@chakra-ui/react';
-// import CustomerSwicth from '../../common/switch/customer-switch';
-// import SearchCustomer from '@/components/common/search/SearchCustomer';
-// import UserForm from './user-form';
-// import VehicleSwitch from '@/components/common/switch/vehicle-switch';
-// import SearchVehicle from '@/components/common/search/SearchVehicle';
+
 import { GoPlus } from 'react-icons/go';
 import { BsTrash } from 'react-icons/bs';
 import NumericInput from '@/components/Input/NumericInput';
@@ -27,7 +23,7 @@ import CustomSelect from '@/components/Input/CustomSelect';
 import { serviceOptions } from '@/data/options/invoices';
 import StringInput from '@/components/Input/StringInput';
 import { useAddInvoice } from '@/hooks/invoice/useAddInvoice';
-// import { ConsentModal } from '@/components/common/Modals/ConsentModal';
+import { formatNumber } from '@/utils/format-number';
 
 export default function AddInvoice({ serviceId }: { serviceId: string }) {
   const {
@@ -46,80 +42,12 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
     setFormattedAmount,
   } = useAddInvoice({ serviceId });
   const isDesktop = useBreakpointValue({ base: false, lg: true });
+  // console.log('number is ', formatNumber(quantity * Number(amount)));
 
   return (
     <div>
       <SizeWrapper>
-        {/* <Flex
-            alignItems={'center'}
-            justifyContent={'space-between'}
-            pt={'2rem'}
-          >
-            <Box>
-              <Text mb={'.5rem'} textStyle={'subHeading'}>
-                Create New Invoice
-              </Text>
-              <CustomBreadcrumb />
-            </Box>
-
-            <Flex gap={'1.2rem'}>
-              <Button
-                border="1px solid #898A8C"
-                bg={'white'}
-                variant={'ghost'}
-                minW={'9rem'}
-              >
-                Back
-              </Button>
-              <Button onClick={onSave} minW={'9rem'}>
-                Save and Submit
-              </Button>
-            </Flex>
-          </Flex> */}
         <Box bg={'white'} pb={'3rem'}>
-          {/* <Box pb={'3rem'} mt={'2rem'} pt={'1.6rem'} rounded={'.6rem'}>
-              <CustomerSwicth
-                setIsExistingCustomer={setIsExistingCustomer}
-                isExistingCustomer={isExistingCustomer}
-              />
-              <Text
-                px={'2.5rem'}
-                pb={'.8rem'}
-                variant={'subHeading'}
-                fontWeight={500}
-                mt={'2rem'}
-              >
-                Customer Information
-              </Text>
-              <Divider />
-
-              {isExistingCustomer ? <SearchCustomer /> : <UserForm />}
-            </Box>
-            <Box
-              pb={'3rem'}
-              mt={'2rem'}
-              pt={'1.6rem'}
-              bg={'white'}
-              rounded={'.6rem'}
-            >
-              <VehicleSwitch
-                setIsExistingVehicle={setIsExistingVehicle}
-                isExistingVehicle={isExistingVehicle}
-              />
-              <Text
-                px={'2.5rem'}
-                pb={'.8rem'}
-                variant={'subHeading'}
-                fontWeight={500}
-                mt={'2rem'}
-              >
-                Vehicle Information
-              </Text>
-              <Divider />
-
-              {isExistingVehicle ? <SearchVehicle /> : <UserForm />}
-            </Box> */}
-
           <Box
             pb={'1rem'}
             mt={'2rem'}
@@ -163,7 +91,7 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
               /> */}
 
             <Box px={{ base: '1rem', md: '2.5rem' }} mt={'1.5rem'}>
-              <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 3 }}>
+              <SimpleGrid gap={'1.2rem'} columns={{ base: 1, md: 4 }}>
                 <GridItem>
                   <CustomSelect
                     placeholder="Type to search..."
@@ -199,23 +127,35 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
                       setFormattedAmount(values.formattedValue);
                     }}
                     formControlProps={{
-                      label: 'Amount',
+                      label: 'Unit price',
                     }}
                     inputProps={{
                       placeholder: 'Enter amount',
-                      // onChange: (e) => {
-                      //   console.log('e is ', e.target);
 
-                      //   setAmount(e.target.value);
-                      // },
                       value: amount,
+                    }}
+                  />
+                </GridItem>
+                <GridItem>
+                  <StringInput
+                    inputProps={{
+                      type: 'text',
+                      placeholder: '₦0',
+
+                      value: !isNaN(quantity * Number(amount))
+                        ? `₦${formatNumber(quantity * Number(amount))}`
+                        : '',
+                    }}
+                    formControlProps={{
+                      label: 'Amount',
+                      isReadOnly: true,
                     }}
                   />
                 </GridItem>
               </SimpleGrid>
 
               <Stack minH={'10vh'} mt={'2rem'} mb="1rem">
-                {invoiceItems.map((item) => (
+                {invoiceItems.map((item: any) => (
                   // <Stack key={item.service}>
                   <Flex
                     key={item.service}
@@ -250,7 +190,7 @@ export default function AddInvoice({ serviceId }: { serviceId: string }) {
                         >
                           {item.quantity}
                         </Text>
-                        <Text>{item.formattedAmount}</Text>
+                        <Text>₦{formatNumber(item.price * item.quantity)}</Text>
                       </Flex>
                     </Flex>
 

@@ -33,6 +33,13 @@ export default function EditService({ id }: { id: string }) {
     handleChange,
     handleFormSubmit,
   } = useEditService({ serviceId: id });
+
+  const addOneHour = (isoString: any) => {
+    const date = new Date(isoString);
+    date.setHours(date.getHours() + 1); // Add 1 hour
+    return date.toISOString().slice(0, 16); // Convert to ISO string and slice
+  };
+
   if (!values.type) {
     return <LottieLoader />;
   }
@@ -126,7 +133,8 @@ export default function EditService({ id }: { id: string }) {
                     const newValue = new Date(e.target.value);
                     setFieldValue('timeIn', newValue);
                   },
-                  value: values?.timeIn?.toISOString().slice(0, 16),
+                  value: addOneHour(values?.timeIn),
+                  //  value: values?.timeIn?.toISOString().slice(0, 16),
                   isInvalid: Boolean(errors.timeIn && touched.timeIn),
                   onBlur: handleBlur,
                 }}

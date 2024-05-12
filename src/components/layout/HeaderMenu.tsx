@@ -20,7 +20,7 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { PiSignOutLight } from 'react-icons/pi';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 export default function HeaderMenu() {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const { logout } = useAuth();
@@ -30,6 +30,7 @@ export default function HeaderMenu() {
     onClose();
   };
   const isDesktop = useBreakpointValue({ base: false, lg: true });
+  const session = useSession();
 
   return (
     <Popover
@@ -57,7 +58,7 @@ export default function HeaderMenu() {
               w={'100%'}
               h={'100%'}
               objectFit={'cover'}
-              src={userAdmin.src}
+              src={session?.data?.user?.image || userAdmin.src}
               alt="user"
             />
           </Box>
