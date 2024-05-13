@@ -58,5 +58,6 @@ export const serviceOptions = [
   'Ignition coil',
   'Engine repair',
   'Interior detailing',
+  'Drive belt',
   'Others',
 ];
