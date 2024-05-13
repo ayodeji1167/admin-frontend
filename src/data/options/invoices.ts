@@ -59,5 +59,7 @@ export const serviceOptions = [
   'Engine repair',
   'Interior detailing',
   'Drive belt',
+  'Radiator repair',
+  'Workmanship',
   'Others',
 ];
