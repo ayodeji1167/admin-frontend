@@ -52,6 +52,7 @@ export const serviceOptions = [
   'Key programming',
   'Ignition module',
   'fuel pump',
+  'fuel pump cover',
   'Fuel gauge',
   'Fuel tank assy',
   'Spark plugs',
