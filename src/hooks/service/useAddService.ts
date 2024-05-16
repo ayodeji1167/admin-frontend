@@ -5,6 +5,7 @@ import { FormEvent } from 'react';
 // import { useToast } from '../useToast';
 import { removeEmptyFields } from '@/utils/remove-empty-fields';
 import { useGetAllServices } from '@/app/api/service/get-all-services';
+import { StatusEnum } from '@/enum/status';
 
 export const useAddService = ({
   id,
@@ -18,7 +19,7 @@ export const useAddService = ({
   const { mutateAsync, isPending } = useAddServiceApi();
   const { refetch } = useGetAllServices({
     pageIndex: 0,
-    pageSize: 1,
+    pageSize: 10,
     vehicleId: id,
   });
   //   const toast = useToast();
@@ -33,6 +34,7 @@ export const useAddService = ({
     timeOut: initialValues?.timeOut ?? '',
     useDefaultTimeIn: initialValues?.useDefaultTimeIn ?? true,
     ownershipType: initialValues?.ownershipType ?? '',
+    status: initialValues?.status ?? StatusEnum.PENDING,
   };
 
   const {

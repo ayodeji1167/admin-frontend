@@ -14,7 +14,7 @@ export const useEditService = ({ serviceId }: { serviceId?: string }) => {
   const { refetch } = useGetAllServices(
     {
       pageIndex: 0,
-      pageSize: 1,
+      pageSize: 10,
       vehicleId,
     },
     { enabled: Boolean(vehicleId) }
