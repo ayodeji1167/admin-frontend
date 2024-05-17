@@ -3,6 +3,7 @@ export enum VehicleTypeEnum {
   Car = 'CAR',
   Truck = 'TRUCK',
   Bus = 'BUS',
+  Pickup = 'Pickup',
 }
 
 export enum FuelTypeEnum {

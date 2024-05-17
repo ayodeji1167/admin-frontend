@@ -8,6 +8,7 @@ export const carTypeOptions = [
   { label: 'Car', value: 'CAR' },
   { label: 'Bus', value: 'BUS' },
   { label: 'Lorry', value: 'LORRY' },
+  { label: 'Pickup', value: 'PICKUP' },
 ];
 export const fuelTypeOptions = [
   { label: 'Petrol', value: 'PETROL' },
