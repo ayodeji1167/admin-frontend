@@ -2,6 +2,7 @@
 import CustomSelect from '@/components/Input/CustomSelect';
 import CustomTextArea from '@/components/Input/CustomTextArea';
 import StringInput from '@/components/Input/StringInput';
+import { statusOptions } from '@/data/options/status';
 import { ServiceTypeEnum } from '@/enum/service';
 import { useAddService } from '@/hooks/service/useAddService';
 import { IService } from '@/interface/service';
@@ -78,6 +79,7 @@ export default function LogServiceModal({
               }}
             />
           </GridItem>
+
           <GridItem>
             <CustomSelect
               placeholder="Type  search..."
@@ -95,7 +97,7 @@ export default function LogServiceModal({
             <FormLabel
               fontFamily={'body'}
               fontWeight={'600'}
-              fontSize={{ base: '.8rem', md: '1.1rem' }}
+              fontSize={{ base: '.8rem', md: '.9rem' }}
               htmlFor="email-alerts"
               mb={'0'}
             >
@@ -150,6 +152,21 @@ export default function LogServiceModal({
               formControlProps={{
                 label: 'Time Out',
               }}
+            />
+          </GridItem>
+
+          <GridItem>
+            <CustomSelect
+              placeholder="Type  search..."
+              options={statusOptions}
+              onChange={(val) => {
+                setFieldValue('status', val.value);
+              }}
+              label="Status"
+              defaultValue={statusOptions.filter(
+                (item) =>
+                  item.value.toLowerCase() === values.status?.toLowerCase()
+              )}
             />
           </GridItem>
         </SimpleGrid>

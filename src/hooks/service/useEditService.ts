@@ -8,12 +8,13 @@ import { useEditServiceApi } from '@/app/api/service/edit-service';
 
 export const useEditService = ({ serviceId }: { serviceId?: string }) => {
   const { data } = useGetServiceByIdApi(serviceId);
+
   const vehicleId = data?.data?.vehicle?._id;
   const { mutateAsync, isPending } = useEditServiceApi();
   const { refetch } = useGetAllServices(
     {
       pageIndex: 0,
-      pageSize: 1,
+      pageSize: 10,
       vehicleId,
     },
     { enabled: Boolean(vehicleId) }
@@ -28,9 +29,11 @@ export const useEditService = ({ serviceId }: { serviceId?: string }) => {
     vehicle: vehicleId ?? '',
     timeIn,
     timeOut,
-    useDefaultTimeOut: true,
+    useDefaultTimeOut: !timeOut,
     ownershipType: data?.data?.ownershipType ?? '',
   };
+
+  // console.log("serv inital", serviceInitialValues);
 
   const {
     values,
