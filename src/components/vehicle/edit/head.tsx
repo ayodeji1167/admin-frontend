@@ -18,7 +18,7 @@ export default function Head({ id }: { id: string }) {
 
       <Box>
         <Button onClick={onOpen} minW={'9rem'}>
-          Log New Service
+          Add New Service
         </Button>
       </Box>
 

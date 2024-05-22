@@ -23,7 +23,7 @@ export default function Top() {
       >
         <Text textStyle={'subHeading'}>Service management</Text>
         <Button onClick={onOpen} minW={'10rem'}>
-          Log new service
+          Add new service
         </Button>
       </Flex>
       <SimpleGrid h={'10rem'} gap={'1.4rem'} row={1} columns={3}>
