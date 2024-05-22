@@ -47,7 +47,7 @@ export default function LogServiceModal({
         fontFamily={'heading'}
         fontSize={{ base: '1rem', md: '1.8rem' }}
       >
-        Log New Service for Vehicle
+        Add New Service for Vehicle
       </Text>
       <Text
         mb={'2rem'}
@@ -84,7 +84,12 @@ export default function LogServiceModal({
             <CustomSelect
               placeholder="Type  search..."
               options={mapEnumToArray(ServiceTypeEnum)}
+              // onCreateOption={(e) => {
+              //   console.log('e is ', e);
+              // }}
               onChange={(val) => {
+                // console.log('VALUE IS ', val);
+
                 setFieldValue('type', val.value);
                 // console.log('value is value ', val);
                 // return val;

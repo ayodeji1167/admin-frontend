@@ -1,12 +1,14 @@
 'use client';
 import React from 'react';
-import Select from 'react-select';
+// import Select from 'react-select';
 import { Text, useBreakpointValue } from '@chakra-ui/react';
+import CreatableSelect from 'react-select/creatable';
 
 interface CustomSelectProps {
   options: Array<any>;
   value?: any;
   onChange: (value: any) => void;
+  onCreateOption?: (value: any) => void;
   placeholder?: string;
   label?: string;
   isDisabled?: boolean;
@@ -23,6 +25,7 @@ export default function CustomSelect({
   label,
   selectedOption,
   defaultValue,
+  onCreateOption,
 }: CustomSelectProps) {
   // const [selectedValue, setSelectedValue] = useState(value);
   const isDesktop = useBreakpointValue({ base: false, lg: true });
@@ -42,7 +45,7 @@ export default function CustomSelect({
       >
         {label}
       </Text>
-      <Select
+      <CreatableSelect
         id="select-custom"
         value={selectedOption}
         defaultValue={defaultValue}
@@ -50,6 +53,7 @@ export default function CustomSelect({
         options={options}
         placeholder={placeholder || 'Select an option'}
         isDisabled={isDisabled || false}
+        onCreateOption={onCreateOption}
         styles={{
           control: (base) => ({
             ...base,

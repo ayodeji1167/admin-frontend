@@ -53,7 +53,7 @@ export default function EditService({ id }: { id: string }) {
           fontFamily={'heading'}
           fontSize={'1.8rem'}
         >
-          Log New Service for Vehicle
+          Add New Service for Vehicle
         </Text>
         <Text mb={'2rem'} color={'#5D5E5F'}>
           Please fill out the following form to log a new service appointment
