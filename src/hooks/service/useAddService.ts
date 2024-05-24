@@ -26,6 +26,7 @@ export const useAddService = ({
 
   const serviceInitialValues: Partial<IService> = {
     type: initialValues?.type ?? '',
+    branch: initialValues?.branch ?? '',
     // user: initialValues?.user ?? '',
     // business: initialValues?.business ?? '',
     note: initialValues?.note ?? '',
@@ -53,6 +54,7 @@ export const useAddService = ({
       //     toast({ description: 'Please select ownership type', status: 'error' });
       //     return;
       //   }
+
       await mutateAsync(removeEmptyFields(values));
       refetch();
       onClose();

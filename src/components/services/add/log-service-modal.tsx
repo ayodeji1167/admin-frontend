@@ -79,6 +79,24 @@ export default function LogServiceModal({
               }}
             />
           </GridItem>
+          <GridItem>
+            <StringInput
+              errorMessage={errors.branch}
+              touched={touched.branch}
+              inputProps={{
+                name: 'branch',
+                type: 'text',
+                placeholder: 'Surulere',
+                onChange: handleChange,
+                value: values.branch,
+                isInvalid: Boolean(errors.branch && touched.branch),
+                onBlur: handleBlur,
+              }}
+              formControlProps={{
+                label: 'Branch',
+              }}
+            />
+          </GridItem>
 
           <GridItem>
             <CustomSelect

@@ -2,6 +2,7 @@ import { StatusEnum } from '@/enum/status';
 
 export interface IService {
   type: string;
+  branch: string;
   vehicle: string;
   business?: string;
   user?: string;
